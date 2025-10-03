@@ -174,12 +174,12 @@ app/
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Author
+## 👨‍💻 Team Mebers
 
-**Your Name**
-- GitHub: [@Sufyaan-Cassim](https://github.com/Sufyaan-Cassim)
-- Email: your.email@example.com
-- LinkedIn: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
+- Sufyaan Cassim | ST10304152
+- Mukethwa Susan Mukhoro | ST10400833
+- Sijongokuhle Kungawo Jikijela | ST10374043
+- Ntokoza Mayisela | ST10270987
 
 ## 📺 Demo Video
 

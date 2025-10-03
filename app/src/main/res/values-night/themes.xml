@@ -43,6 +43,7 @@
         
         <!-- Navigation bar for dark theme -->
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowLightNavigationBar">false</item>
+        <!-- windowLightNavigationBar requires API 27+ -->
+        <item name="android:windowLightNavigationBar" tools:targetApi="o">false</item>
     </style>
 </resources>

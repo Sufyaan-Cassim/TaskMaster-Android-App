@@ -76,12 +76,12 @@ class TaskRepositoryTest {
     }
 
     @Test
-    fun `test task validation with null title`() {
+    fun `test task validation with empty title`() {
         // Arrange
         val invalidTask = Task(
             id = "invalid-task-id",
-            title = null,
-            description = "Task with null title",
+            title = "",
+            description = "Task with empty title",
             isCompleted = false,
             dueDate = "Today",
             priority = "High",
@@ -93,7 +93,7 @@ class TaskRepositoryTest {
         )
 
         // Act & Assert
-        assertFalse("Task with null title should be invalid", isValidTask(invalidTask))
+        assertFalse("Task with empty title should be invalid", isValidTask(invalidTask))
     }
 
     @Test
