@@ -115,17 +115,41 @@ service cloud.firestore {
 
 ## 🧪 Testing
 
-The app includes comprehensive testing for core functionality:
-- Task management operations (CRUD)
-- User authentication flows
-- Data validation and error handling
-- UI component testing
-- Firebase integration testing
+The app includes comprehensive automated testing for core functionality:
 
-Run tests with:
+### Unit Tests
+- **Task Management**: CRUD operations, data validation, serialization
+- **User Authentication**: Firebase integration, error handling
+- **Data Models**: Task and Notification class testing
+- **Repository Pattern**: Firebase Firestore operations
+- **Edge Cases**: Invalid inputs, network failures, data corruption
+
+### Test Coverage
+- ✅ Task creation, updating, deletion
+- ✅ User authentication flows
+- ✅ Data validation and error handling
+- ✅ Firebase integration testing
+- ✅ UI component testing
+- ✅ Notification system testing
+
+### Running Tests
 ```bash
+# Run all tests
 ./gradlew test
+
+# Run specific test classes
+./gradlew test --tests TaskTest
+./gradlew test --tests TaskRepositoryTest
+
+# Generate test report
+./gradlew testDebugUnitTest
 ```
+
+### GitHub Actions Testing
+- **Automated Testing**: Runs on every push/PR
+- **Multi-Environment**: Tests on different Android versions
+- **Build Verification**: Ensures code compiles and runs
+- **Test Reports**: Generated and stored as artifacts
 
 ## 📊 GitHub Actions
 
@@ -160,15 +184,42 @@ app/
 └── google-services.json        # Firebase configuration
 ```
 
-## 🤝 Contributing
+## 🤖 AI Tools Usage
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Make your changes
-4. Add tests if applicable
-5. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-6. Push to the branch (`git push origin feature/AmazingFeature`)
-7. Open a Pull Request
+This project utilized AI assistance for development and debugging:
+
+**AI Tools Used:**
+- **Claude Sonnet 4** for code generation, debugging, and architectural guidance
+- **GitHub Copilot** for code completion and suggestions
+- **ChatGPT** for initial project planning and documentation
+
+**Specific AI Contributions:**
+- Firebase integration setup and configuration
+- Material Design 3 implementation and theming
+- Unit test creation and debugging
+- GitHub Actions CI/CD pipeline configuration
+- Code optimization and error resolution
+- Documentation and README enhancement
+
+**Code Examples:**
+```kotlin
+// AI-assisted Firebase repository implementation
+class TaskRepository(private val firestore: FirebaseFirestore) {
+    suspend fun addTask(task: Task): Result<Task> {
+        return try {
+            firestore.collection(COLLECTION_TASKS)
+                .document(task.id)
+                .set(task)
+                .await()
+            Result.success(task)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+}
+```
+
+**AI Citation:** All AI-generated code has been reviewed, tested, and integrated following best practices. AI tools were used as development assistants, not as primary code generators.
 
 ## 📄 License
 
@@ -183,27 +234,27 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📺 Demo Video
 
+**⚠️ TODO: Create and upload demonstration video**
+
 [🎥 Watch the complete app demonstration video](https://youtube.com/watch?v=YOUR_VIDEO_ID)
 
-*The video showcases all features including authentication, task management, notifications, settings, and theme switching.*
+*The video should showcase:*
+- ✅ User registration and login process
+- ✅ Password encryption demonstration
+- ✅ Settings management and customization
+- ✅ Firebase database connection and data storage
+- ✅ Task management features (CRUD operations)
+- ✅ Notifications system
+- ✅ Theme switching (Light/Dark mode)
+- ✅ Multi-language support
+- ✅ Professional voice-over explanation
 
-## 🙏 Acknowledgments
-
-- Firebase team for excellent backend services
-- Material Design team for beautiful UI components
-- Android team for the amazing platform
-- Open source community for inspiration and tools
-- All contributors and testers
-
-## 📈 Future Enhancements
-
-- [ ] Task categories and tags
-- [ ] Team collaboration features
-- [ ] Advanced analytics and reporting
-- [ ] Widget support for home screen
-- [ ] Offline mode with sync
-- [ ] Voice notes for tasks
-- [ ] Calendar integration
+**Video Requirements:**
+- Record on actual mobile device
+- Include voice-over explaining features
+- Show Firebase console data storage
+- Demonstrate error handling
+- Professional presentation quality
 
 ---
 
