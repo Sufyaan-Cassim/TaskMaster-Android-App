@@ -128,7 +128,7 @@ class TaskTest {
         )
 
         // Act & Assert - Test that task implements Serializable
-        assertTrue("Task should implement Serializable", task is Serializable)
+        assertTrue("Task should implement Serializable", task is java.io.Serializable)
     }
 
     @Test
