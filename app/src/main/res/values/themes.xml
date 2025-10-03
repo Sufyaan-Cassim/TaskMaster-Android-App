@@ -1,0 +1,58 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.TaskMaster" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Light theme colors -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorPrimaryContainer">@color/primary_variant</item>
+        <item name="colorOnPrimaryContainer">@color/on_primary</item>
+        
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+        <item name="colorSecondaryContainer">@color/secondary_variant</item>
+        <item name="colorOnSecondaryContainer">@color/on_secondary</item>
+        
+        <item name="colorTertiary">@color/primary</item>
+        <item name="colorOnTertiary">@color/on_primary</item>
+        <item name="colorTertiaryContainer">@color/primary_variant</item>
+        <item name="colorOnTertiaryContainer">@color/on_primary</item>
+        
+        <item name="colorError">@color/error</item>
+        <item name="colorOnError">@color/on_error</item>
+        <item name="colorErrorContainer">@color/error</item>
+        <item name="colorOnErrorContainer">@color/on_error</item>
+        
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
+        <item name="colorSurfaceContainer">@color/surface</item>
+        <item name="colorSurfaceContainerHigh">@color/surface</item>
+        <item name="colorSurfaceContainerHighest">@color/surface</item>
+        
+        <item name="colorOutline">@color/outline</item>
+        <item name="colorOutlineVariant">@color/outline_variant</item>
+        
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:textColorPrimary">@color/on_background</item>
+        <item name="android:textColorSecondary">@color/on_surface_variant</item>
+        
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        
+        <!-- Navigation bar -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
+    <style name="Theme.TaskMaster" parent="Base.Theme.TaskMaster" />
+    
+    <!-- Custom full-width dialog theme -->
+    <style name="FullWidthDialog" parent="Theme.Material3.DayNight.Dialog">
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+</resources>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "445877414792",
+    "project_id": "todoapp-5225c",
+    "storage_bucket": "todoapp-5225c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445877414792:android:9dc17ef5cb7372f883683d",
+        "android_client_info": {
+          "package_name": "za.co.rosebankcollege.st10304152.taskmaster"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKRPh2QurvK-rEBCXjLt_NPJsLu2kpCkk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445877414792:android:76c2ed53332feba283683d",
+        "android_client_info": {
+          "package_name": "za.co.rosebankcollege.st10304152.todoapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKRPh2QurvK-rEBCXjLt_NPJsLu2kpCkk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

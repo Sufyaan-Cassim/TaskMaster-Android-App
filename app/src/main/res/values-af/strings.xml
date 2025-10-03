@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TaakMeester</string>
+    <string name="welcome_text">Welkom Terug!</string>
+    <string name="subtitle">Meld aan om voort te gaan met die bestuur van jou take</string>
+    <string name="email_hint">E-pos Adres</string>
+    <string name="password_hint">Wagwoord</string>
+    <string name="sign_in">Teken In</string>
+    <string name="sign_up">Teken Op</string>
+    <string name="forgot_password">Wagwoord Vergeet?</string>
+    <string name="dont_have_account">Het jy nie \'n rekening nie? </string>
+    <string name="have_account">Het jy reeds \'n rekening? </string>
+    <string name="login">Teken In</string>
+    <string name="register">Registreer</string>
+    <string name="home">Tuis</string>
+    <string name="settings">Instellings</string>
+    <string name="notifications">Kennisgewings</string>
+    <string name="tasks">Take</string>
+    <string name="add_task">Voeg Taak By</string>
+    <string name="edit_task">Wysig Taak</string>
+    <string name="delete_task">Skrap Taak</string>
+    <string name="mark_complete">Merk Voltooi</string>
+    <string name="mark_pending">Merk Hangend</string>
+    <string name="all_tasks">Alle Take</string>
+    <string name="pending_tasks">Hangende Take</string>
+    <string name="completed_tasks">Voltooide Take</string>
+    <string name="language">Taal</string>
+    <string name="theme">Tema</string>
+    <string name="dark_theme">Donker Tema</string>
+    <string name="light_theme">Lig Tema</string>
+    <string name="notifications_enabled">Aktiveer kennisgewings</string>
+    <string name="privacy_policy">Privaatheid Beleid</string>
+    <string name="terms_of_service">Diensbepalings</string>
+    <string name="logout">Teken Uit</string>
+    <string name="edit_profile">Wysig Profiel</string>
+    <string name="app_information">App Inligting</string>
+    <string name="version">Weergawe</string>
+    <string name="build">Bou</string>
+    <string name="app_name_label">App Naam</string>
+    
+    <!-- Existing task-related strings -->
+    <string name="task_details">Taak Besonderhede</string>
+    <string name="task_title">Taak titel</string>
+    <string name="description">Beskrywing</string>
+    <string name="priority">Prioriteit</string>
+    <string name="low">Laag</string>
+    <string name="medium">Medium</string>
+    <string name="high">Hoog</string>
+    <string name="date_amp_time"><![CDATA[Datum & Tyd]]></string>
+    <string name="calendar">Kalender</string>
+    <string name="due_date">Vervaldatum</string>
+    <string name="today">Vandag</string>
+    <string name="time">Tyd</string>
+    <string name="due_time">Vervaltyd</string>
+    <string name="_9_00_am">09:00</string>
+    <string name="reminders">Herinneringe</string>
+    <string name="enable_reminders">Aktiveer herinneringe</string>
+    <string name="reminder">Herinnering</string>
+    <string name="remind_me">Herinner my</string>
+    <string name="_15_min_before">15 min voor</string>
+    <string name="cancel">Kanselleer</string>
+    <string name="save_task">Stoor Taak</string>
+    
+    <!-- Change Password -->
+    <string name="change_password">Verander Wagwoord</string>
+    <string name="current_password">Huidige wagwoord</string>
+    <string name="new_password">Nuwe wagwoord</string>
+    <string name="confirm_password">Bevestig nuwe wagwoord</string>
+    <string name="password_changed_successfully">Wagwoord suksesvol verander</string>
+    <string name="password_change_failed">Kon nie wagwoord verander nie</string>
+    <string name="authentication_failed">Verifikasie het misluk</string>
+    <string name="password_too_short">Nuwe wagwoord moet ten minste 6 karakters wees</string>
+    <string name="passwords_dont_match">Wagwoorde stem nie ooreen nie</string>
+    <string name="fill_all_fields">Vul asseblief alle velde in</string>
+    <string name="user_not_authenticated">Gebruiker nie geverifieer nie</string>
+    <string name="changing">Verander...</string>
+    
+    <!-- Language Options -->
+    <string name="english">English</string>
+    <string name="afrikaans">Afrikaans</string>
+    <string name="zulu">IsiZulu</string>
+    
+    <!-- Profile -->
+    <string name="profile">Profiel</string>
+    <string name="username">Gebruikersnaam</string>
+    <string name="email">E-pos</string>
+    <string name="save">Stoor</string>
+    <string name="edit">Wysig</string>
+    <string name="user">Gebruiker</string>
+    
+    <!-- Account -->
+    <string name="account">Rekening</string>
+    <string name="change_password_option">Verander wagwoord</string>
+    
+    <!-- General -->
+    <string name="ok">OK</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+    <string name="loading">Laai...</string>
+    <string name="error">Fout</string>
+    <string name="success">Sukses</string>
+    <string name="changing_language">Verander taal...</string>
+    <string name="language_changed">Taal suksesvol verander</string>
+    
+    <!-- Register -->
+    <string name="create_account">Skep Rekening</string>
+    <string name="join_taskmaster">Sluit by TaskMaster aan en begin om jou lewe te organiseer</string>
+
+</resources>
