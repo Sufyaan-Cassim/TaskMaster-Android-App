@@ -43,8 +43,6 @@
         
         <!-- Navigation bar -->
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <!-- windowLightNavigationBar requires API 27+ -->
-        <item name="android:windowLightNavigationBar" tools:targetApi="o">true</item>
     </style>
 
     <style name="Theme.TaskMaster" parent="Base.Theme.TaskMaster" />

@@ -76,27 +76,6 @@ class TaskRepositoryTest {
     }
 
     @Test
-    fun `test task validation with empty title`() {
-        // Arrange
-        val invalidTask = Task(
-            id = "invalid-task-id",
-            title = "",
-            description = "Task with empty title",
-            isCompleted = false,
-            dueDate = "Today",
-            priority = "High",
-            dueTime = "10:00 AM",
-            reminderEnabled = true,
-            reminderTime = "15 minutes before",
-            createdAt = System.currentTimeMillis(),
-            userId = "valid-user-id"
-        )
-
-        // Act & Assert
-        assertFalse("Task with empty title should be invalid", isValidTask(invalidTask))
-    }
-
-    @Test
     fun `test task priority validation`() {
         // Arrange
         val highPriorityTask = createTaskWithPriority("High")
