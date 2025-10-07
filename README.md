@@ -229,7 +229,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 [🎥 Watch the complete app demonstration video](https://youtu.be/u1rUb_OXvaQ)
 
-*The video should showcase:*
 - ✅ User registration and login process
 - ✅ Password encryption demonstration
 - ✅ Settings management and customization
