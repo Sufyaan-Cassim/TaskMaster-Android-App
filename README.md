@@ -32,13 +32,6 @@ A beautiful, feature-rich Android task management application built with Kotlin,
 - **Smooth Animations** and transitions
 - **Professional Visual Design** with floating elements
 
-### 🔔 Notifications
-- **Real-time Notifications** based on task events
-- **Smart Filtering** (All, Unread, Important)
-- **Mark as Read** functionality
-- **Bulk Operations** (Clear All notifications)
-- **Persistent Notification State** across app sessions
-
 ### ⚙️ Settings & Customization
 - **Language Switching** with instant updates
 - **Theme Toggle** (Light/Dark mode)
@@ -63,14 +56,14 @@ A beautiful, feature-rich Android task management application built with Kotlin,
 ## 📱 Screenshots
 
 ### Light Mode
-| Home Screen | Task Details | Settings |
-|-------------|--------------|----------|
-| ![Light Home](screenshots/light_home.png) | ![Light Task Details](screenshots/light_task_details.png) | ![Light Settings](screenshots/light_settings.png) |
+| Home Screen                               | Task Details                                             | Settings                                          |
+|-------------------------------------------|----------------------------------------------------------|---------------------------------------------------|
+| ![Light Home](screenshots/light_home.jpg) | ![Light Task Details](screenshots/light_task_details.jpg) | ![Light Settings](screenshots/light_settings.jpg) |
 
 ### Dark Mode
-| Home Screen | Task Details | Settings |
-|-------------|--------------|----------|
-| ![Dark Home](screenshots/dark_home.png) | ![Dark Task Details](screenshots/dark_task_details.png) | ![Dark Settings](screenshots/dark_settings.png) |
+| Home Screen                             | Task Details                                            | Settings                                       |
+|-----------------------------------------|---------------------------------------------------------|------------------------------------------------|
+| ![Dark Home](screenshots/dark_home.jpg) | ![Dark Task Details](screenshots/dark_task_details.jpg) | ![Dark Settings](screenshots/dark_settings.jpg) |
 
 ## 🚀 Getting Started
 
@@ -225,7 +218,7 @@ class TaskRepository(private val firestore: FirebaseFirestore) {
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Team Mebers
+## 👨‍💻 Team Members
 
 - Sufyaan Cassim | ST10304152
 - Mukethwa Susan Mukhoro | ST10400833
@@ -234,9 +227,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📺 Demo Video
 
-**⚠️ TODO: Create and upload demonstration video**
-
-[🎥 Watch the complete app demonstration video](https://youtube.com/watch?v=YOUR_VIDEO_ID)
+[🎥 Watch the complete app demonstration video](https://youtu.be/u1rUb_OXvaQ)
 
 *The video should showcase:*
 - ✅ User registration and login process
@@ -244,17 +235,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - ✅ Settings management and customization
 - ✅ Firebase database connection and data storage
 - ✅ Task management features (CRUD operations)
-- ✅ Notifications system
 - ✅ Theme switching (Light/Dark mode)
-- ✅ Multi-language support
 - ✅ Professional voice-over explanation
-
-**Video Requirements:**
-- Record on actual mobile device
-- Include voice-over explaining features
-- Show Firebase console data storage
-- Demonstrate error handling
-- Professional presentation quality
 
 ---
 
