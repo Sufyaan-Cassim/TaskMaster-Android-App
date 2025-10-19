@@ -1,20 +1,32 @@
 package za.co.rosebankcollege.st10304152.taskmaster.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import za.co.rosebankcollege.st10304152.taskmaster.R
 
 class RegisterFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
+    private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +40,12 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         auth = FirebaseAuth.getInstance()
+        
+        // Configure Google Sign-In
+        configureGoogleSignIn()
+        
+        // Setup Google Sign-In launcher
+        setupGoogleSignInLauncher()
 
         val emailEt = view.findViewById<EditText>(R.id.etRegisterEmail)
         val passEt = view.findViewById<EditText>(R.id.etRegisterPassword)
@@ -65,6 +83,11 @@ class RegisterFragment : Fragment() {
                 }
         }
 
+        // Google Sign-In Button
+        view.findViewById<View>(R.id.google_button)?.setOnClickListener {
+            signInWithGoogle()
+        }
+
         // Toggle checkbox when terms text is clicked
         termsText.setOnClickListener {
             termsCb.isChecked = !termsCb.isChecked
@@ -74,5 +97,64 @@ class RegisterFragment : Fragment() {
         view.findViewById<View>(R.id.login_link)?.setOnClickListener {
             findNavController().navigate(R.id.action_register_to_login)
         }
+    }
+
+    /**
+     * Configure Google Sign-In options
+     */
+    private fun configureGoogleSignIn() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+    }
+
+    /**
+     * Setup Google Sign-In launcher for handling the result
+     */
+    private fun setupGoogleSignInLauncher() {
+        googleSignInLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                firebaseAuthWithGoogle(account)
+            } catch (e: ApiException) {
+                Log.w("GoogleSignIn", "Google sign in failed", e)
+                Toast.makeText(requireContext(), "Google sign in failed: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    /**
+     * Initiate Google Sign-In process
+     */
+    private fun signInWithGoogle() {
+        val signInIntent = googleSignInClient.signInIntent
+        googleSignInLauncher.launch(signInIntent)
+    }
+
+    /**
+     * Authenticate with Firebase using Google account
+     */
+    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount?) {
+        Log.d("GoogleSignIn", "firebaseAuthWithGoogle:${acct?.id}")
+
+        val credential = GoogleAuthProvider.getCredential(acct?.idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    Log.d("GoogleSignIn", "signInWithCredential:success")
+                    val user = auth.currentUser
+                    Toast.makeText(requireContext(), "Welcome ${user?.displayName}!", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_register_to_home)
+                } else {
+                    Log.w("GoogleSignIn", "signInWithCredential:failure", task.exception)
+                    Toast.makeText(requireContext(), "Authentication failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 }

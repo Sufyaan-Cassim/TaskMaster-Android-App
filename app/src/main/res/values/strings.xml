@@ -105,4 +105,8 @@
     <string name="create_account">Create Account</string>
     <string name="join_taskmaster">Join TaskMaster and start organizing your life</string>
 
+    <!-- Google Sign-In -->
+    <string name="default_web_client_id">YOUR_WEB_CLIENT_ID_HERE</string>
+    <string name="continue_with_google">Continue with Google</string>
+
 </resources>
