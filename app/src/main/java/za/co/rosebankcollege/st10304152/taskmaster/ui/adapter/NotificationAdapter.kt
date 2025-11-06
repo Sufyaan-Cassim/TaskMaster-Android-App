@@ -35,10 +35,14 @@ class NotificationAdapter(
 
     override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) {
         val notification = notifications[position]
+        val context = holder.itemView.context
         
-        holder.title.text = notification.title
-        holder.message.text = notification.message
-        holder.time.text = formatTime(notification.timestamp)
+        // Localize notification title and message based on type
+        val (localizedTitle, localizedMessage) = getLocalizedNotificationText(notification, context)
+        
+        holder.title.text = localizedTitle
+        holder.message.text = localizedMessage
+        holder.time.text = formatTime(notification.timestamp, context)
         
         // Set icon based on notification type
         val iconRes = when (notification.type) {
@@ -79,18 +83,118 @@ class NotificationAdapter(
         notifyDataSetChanged()
     }
 
-    private fun formatTime(timestamp: Long): String {
+    private fun formatTime(timestamp: Long, context: android.content.Context): String {
         val now = System.currentTimeMillis()
         val diff = now - timestamp
         
         return when {
-            diff < 60 * 1000 -> "Just now"
-            diff < 60 * 60 * 1000 -> "${diff / (60 * 1000)}m ago"
-            diff < 24 * 60 * 60 * 1000 -> "${diff / (60 * 60 * 1000)}h ago"
+            diff < 60 * 1000 -> context.getString(R.string.just_now)
+            diff < 60 * 60 * 1000 -> context.getString(R.string.n_minutes_ago, diff / (60 * 1000))
+            diff < 24 * 60 * 60 * 1000 -> context.getString(R.string.n_hours_ago, diff / (60 * 60 * 1000))
             else -> {
                 val formatter = SimpleDateFormat("MMM dd", Locale.getDefault())
                 formatter.format(Date(timestamp))
             }
         }
+    }
+    
+    /**
+     * Extract task title from notification message and re-localize
+     */
+    private fun getLocalizedNotificationText(
+        notification: Notification,
+        context: android.content.Context
+    ): Pair<String, String> {
+        // Try to extract task title from message (between quotes or single quotes)
+        val taskTitle = extractTaskTitleFromMessage(notification.message) ?: ""
+        
+        return when (notification.type) {
+            NotificationType.TASK_DUE -> {
+                // Check if it's "due today" pattern
+                val title = if (notification.title.contains("Today", ignoreCase = true) ||
+                    notification.title.contains("Vandag", ignoreCase = true) ||
+                    notification.title.contains("Namhlanje", ignoreCase = true)) {
+                    context.getString(R.string.task_due_today_title)
+                } else {
+                    context.getString(R.string.task_due_soon)
+                }
+                val message = if (taskTitle.isNotEmpty()) {
+                    context.getString(R.string.task_due_today_message, taskTitle)
+                } else {
+                    // Fallback: try to extract from original message or use as-is
+                    notification.message
+                }
+                Pair(title, message)
+            }
+            NotificationType.TASK_COMPLETED -> {
+                val title = context.getString(R.string.task_completed_title)
+                val message = if (taskTitle.isNotEmpty()) {
+                    context.getString(R.string.task_completed_message, taskTitle)
+                } else {
+                    notification.message
+                }
+                Pair(title, message)
+            }
+            NotificationType.TASK_CREATED -> {
+                val title = context.getString(R.string.task_created_title)
+                val message = if (taskTitle.isNotEmpty()) {
+                    context.getString(R.string.task_created_message, taskTitle)
+                } else {
+                    notification.message
+                }
+                Pair(title, message)
+            }
+            NotificationType.TASK_OVERDUE -> {
+                val title = context.getString(R.string.task_overdue_title)
+                val message = if (taskTitle.isNotEmpty()) {
+                    context.getString(R.string.task_overdue_message, taskTitle)
+                } else {
+                    notification.message
+                }
+                Pair(title, message)
+            }
+            NotificationType.INFO -> {
+                // For INFO type, check if it's high priority task
+                if (notification.priority.lowercase() == "high" && taskTitle.isNotEmpty()) {
+                    Pair(
+                        context.getString(R.string.high_priority_task_title),
+                        context.getString(R.string.high_priority_task_message, taskTitle)
+                    )
+                } else {
+                    Pair(notification.title, notification.message)
+                }
+            }
+            NotificationType.REMINDER -> {
+                Pair(notification.title, notification.message)
+            }
+        }
+    }
+    
+    /**
+     * Extract task title from notification message
+     * Looks for text between single quotes, double quotes, or after common patterns
+     */
+    private fun extractTaskTitleFromMessage(message: String): String? {
+        // Try to extract text between single quotes ('...')
+        val singleQuotePattern = Regex("'([^']+)'")
+        singleQuotePattern.find(message)?.let {
+            return it.groupValues[1]
+        }
+        
+        // Try to extract text between double quotes ("...")
+        val doubleQuotePattern = Regex("\"([^\"]+)\"")
+        doubleQuotePattern.find(message)?.let {
+            return it.groupValues[1]
+        }
+        
+        // Try common patterns for different languages
+        // English: "Task 'X' is due today" or "'X' is due today"
+        // Afrikaans: "Taak 'X' is vandag af" or "'X' is vandag af"
+        // isiZulu: "Umsebenzi 'X' ufaneleke namhlanje" or "'X' ufaneleke namhlanje"
+        
+        // Pattern: anything between quotes that appears before common words
+        val pattern = Regex("'([^']+)'")
+        val match = pattern.find(message)
+        return match?.groupValues?.get(1)
     }
 }

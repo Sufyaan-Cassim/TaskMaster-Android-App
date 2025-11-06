@@ -18,7 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            app:title="Add New Task"
+            app:title="@string/add_new_task"
             app:titleTextColor="?attr/colorPrimary"
             app:titleTextAppearance="@style/TextAppearance.Material3.HeadlineSmall"
             app:navigationIcon="@drawable/ic_back"

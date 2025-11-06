@@ -1,5 +1,6 @@
 package za.co.rosebankcollege.st10304152.taskmaster.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -25,6 +26,20 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        android.util.Log.d("SplashFragment", "onViewCreated called")
+
+        // Check if we're coming from onboarding (MainActivity with navigate_to_login extra)
+        val isFromOnboarding = requireActivity().intent.getBooleanExtra("navigate_to_login", false)
+        android.util.Log.d("SplashFragment", "isFromOnboarding: $isFromOnboarding")
+        
+        if (isFromOnboarding) {
+            android.util.Log.d("SplashFragment", "Coming from onboarding - MainActivity will handle navigation")
+            // If coming from onboarding, MainActivity will handle navigation
+            // Just return without doing anything
+            return
+        }
+
+        android.util.Log.d("SplashFragment", "Normal splash flow - showing animations and waiting 2.5 seconds")
 
         // Fade-in for content container
         view.findViewById<View>(R.id.content_container)?.apply {
@@ -55,8 +70,17 @@ class SplashFragment : Fragment() {
                 // User is already logged in, go to home
                 findNavController().navigate(R.id.action_splash_to_home)
             } else {
-                // User not logged in, go to login
-                findNavController().navigate(R.id.action_splash_to_login)
+                // Check if onboarding has been completed
+                val onboardingCompleted = OnboardingActivity.isOnboardingCompleted(requireContext())
+                if (onboardingCompleted) {
+                    // Onboarding completed, go to login
+                    findNavController().navigate(R.id.action_splash_to_login)
+                } else {
+                    // First time user, go to onboarding
+                    val intent = Intent(requireContext(), OnboardingActivity::class.java)
+                    startActivity(intent)
+                    requireActivity().finish()
+                }
             }
         }, 2500) // 2.5 seconds
     }

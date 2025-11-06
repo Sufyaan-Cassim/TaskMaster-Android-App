@@ -19,12 +19,53 @@
             android:background="@android:color/transparent"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            app:title="My Tasks"
+            app:title="@string/my_tasks"
             app:titleTextColor="@color/primary"
             app:titleTextAppearance="@style/TextAppearance.Material3.HeadlineSmall"
             app:menu="@menu/home_menu" />
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Offline Indicator -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/offline_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/error"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_anchor="@id/toolbar"
+        app:layout_anchorGravity="bottom">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_wifi_off"
+                android:tint="@color/on_error" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/offline_mode_message"
+                android:textColor="@color/on_error"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- Main Content -->
     <androidx.core.widget.NestedScrollView
@@ -57,7 +98,7 @@
                         android:id="@+id/welcome_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Welcome back!"
+                        android:text="@string/welcome_back"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -67,7 +108,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="You have 0 tasks for today"
+                        android:text="@string/today_task_count_zero"
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         android:alpha="0.9" />
@@ -88,7 +129,7 @@
                     android:id="@+id/chip_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="All"
+                    android:text="@string/all"
                     android:checked="true"
                     android:clickable="true"
                     android:focusable="true"
@@ -99,7 +140,7 @@
                     android:id="@+id/chip_pending"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pending"
+                    android:text="@string/pending"
                     android:clickable="true"
                     android:focusable="true"
                     app:chipBackgroundColor="@color/white"
@@ -111,7 +152,7 @@
                     android:id="@+id/chip_completed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Completed"
+                    android:text="@string/completed"
                     android:clickable="true"
                     android:focusable="true"
                     app:chipBackgroundColor="@color/white"
@@ -123,7 +164,7 @@
                     android:id="@+id/chip_today"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Today"
+                    android:text="@string/today"
                     android:clickable="true"
                     android:focusable="true"
                     app:chipBackgroundColor="@color/white"
@@ -145,7 +186,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="All Tasks"
+                    android:text="@string/all_tasks"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/on_background" />
@@ -189,7 +230,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="No tasks yet"
+                    android:text="@string/no_tasks_yet"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/on_background" />
@@ -199,7 +240,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Tap the + button to create your first task"
+                    android:text="@string/tap_plus_to_create"
                     android:textSize="14sp"
                     android:textColor="@color/on_background"
                     android:alpha="0.7"
@@ -218,7 +259,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:text="Add Task"
+        android:text="@string/add_task"
         app:icon="@drawable/ic_add"
         app:backgroundTint="@color/primary"
         app:iconTint="@color/white"

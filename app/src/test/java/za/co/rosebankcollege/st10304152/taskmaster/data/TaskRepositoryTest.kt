@@ -1,37 +1,13 @@
 package za.co.rosebankcollege.st10304152.taskmaster.data
 
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.auth.FirebaseAuth
-import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
-import org.mockito.junit.MockitoJUnitRunner
-import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 
 /**
- * Unit tests for TaskRepository
- * Tests task management operations with mocked Firebase dependencies
+ * Unit tests for Task data validation and business logic
+ * Tests task management operations and data validation
  */
-@RunWith(MockitoJUnitRunner::class)
 class TaskRepositoryTest {
-
-    @Mock
-    private lateinit var mockFirestore: FirebaseFirestore
-
-    @Mock
-    private lateinit var mockAuth: FirebaseAuth
-
-    private lateinit var taskRepository: TaskRepository
-
-    @Before
-    fun setUp() {
-        MockitoAnnotations.openMocks(this)
-        // Note: In a real implementation, you would inject these mocks
-        // For now, we'll test the data validation and business logic
-    }
 
     @Test
     fun `test task validation with valid data`() {

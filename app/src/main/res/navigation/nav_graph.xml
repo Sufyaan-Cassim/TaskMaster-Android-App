@@ -40,6 +40,11 @@
             app:destination="@id/registerFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_login_to_forgot_password"
+            app:destination="@id/forgotPasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
     </fragment>
 
     <fragment
@@ -165,6 +170,11 @@
         android:id="@+id/termsOfServiceFragment"
         android:name="za.co.rosebankcollege.st10304152.taskmaster.ui.TermsOfServiceFragment"
         android:label="Terms of Service" />
+
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="za.co.rosebankcollege.st10304152.taskmaster.ui.ForgotPasswordFragment"
+        android:label="Forgot Password" />
 
 </navigation>
 

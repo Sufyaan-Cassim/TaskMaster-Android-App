@@ -98,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:text="Today"
+                    android:text="@string/today"
                     android:textSize="12sp"
                     android:textColor="?attr/colorPrimary"
                     android:textStyle="bold" />
@@ -117,7 +117,7 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:src="@drawable/ic_category"
-                    android:contentDescription="Category"
+                    android:contentDescription="@string/category"
                     android:alpha="0.6" />
 
                 <TextView
@@ -125,35 +125,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:text="Work"
+                    android:text="@string/medium"
                     android:textSize="12sp"
                     android:textColor="?android:attr/textColorSecondary"
                     android:alpha="0.8" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
-
-            <!-- Quick Actions -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <!-- More Options -->
-                <ImageButton
-                    android:id="@+id/more_options"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_marginStart="8dp"
-                    android:src="@drawable/ic_more_vert"
-                    android:background="@drawable/circle_button_background"
-                    android:contentDescription="More options"
-                    android:padding="6dp"
-                    android:alpha="0.7" />
 
             </LinearLayout>
 

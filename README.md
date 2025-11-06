@@ -11,7 +11,9 @@ A beautiful, feature-rich Android task management application built with Kotlin,
 
 ### 🔐 Authentication & Security
 - **User Registration & Login** with Firebase Authentication
+- **Single Sign-On (SSO)** with Google Sign-In
 - **Secure Password Management** with encrypted storage
+- **Forgot Password** functionality with email reset
 - **Profile Management** with photo uploads
 - **Password Change** functionality with re-authentication
 
@@ -23,6 +25,9 @@ A beautiful, feature-rich Android task management application built with Kotlin,
 - **Reminder System** with customizable notifications
 - **Smart Filtering** (All, Pending, Completed, Today)
 - **Task Status Management** (Complete/Pending toggle)
+- **Task Sharing** via email, messaging, or other apps
+- **Task Duplication** for quick task creation
+- **Task Export** as formatted text
 
 ### 🎨 User Interface
 - **Modern Material Design 3** with beautiful gradient backgrounds
@@ -33,11 +38,27 @@ A beautiful, feature-rich Android task management application built with Kotlin,
 - **Professional Visual Design** with floating elements
 
 ### ⚙️ Settings & Customization
-- **Language Switching** with instant updates
+- **Language Switching** with instant updates (English, Afrikaans, isiZulu)
 - **Theme Toggle** (Light/Dark mode)
+- **Notification Preferences** with enable/disable toggles
 - **Privacy Policy & Terms** with WebView integration
 - **User Profile** management with photo uploads
 - **Account Settings** and preferences
+
+### 🔔 Notifications & Alerts
+- **Real-Time Push Notifications** for task events
+- **Due Date Reminders** with customizable timing
+- **Task Completion Notifications**
+- **High Priority Task Alerts**
+- **Notification History** with filtering (All, Unread, Important)
+- **Unread Badge Counter** on home screen
+
+### 💾 Offline & Sync
+- **Full Offline Functionality** using Room database
+- **Automatic Synchronization** when online
+- **Conflict Resolution** for offline edits
+- **Sync Status Indicators** for each task
+- **Offline-First Architecture** for fast performance
 
 ## 🛠️ Technical Stack
 
@@ -230,12 +251,73 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [🎥 Watch the complete app demonstration video](https://youtu.be/u1rUb_OXvaQ)
 
 - ✅ User registration and login process
+- ✅ Single Sign-On (SSO) with Google
 - ✅ Password encryption demonstration
 - ✅ Settings management and customization
 - ✅ Firebase database connection and data storage
 - ✅ Task management features (CRUD operations)
+- ✅ Offline mode with automatic synchronization
+- ✅ Real-time push notifications
+- ✅ Multi-language support (English, Afrikaans, isiZulu)
 - ✅ Theme switching (Light/Dark mode)
+- ✅ Forgot password functionality
 - ✅ Professional voice-over explanation
+
+---
+
+## 📝 Release Notes
+
+### Version 2.0.0 - Final POE Release
+
+**🎉 Major New Features:**
+
+#### 🔐 Single Sign-On (SSO) with Google
+- One-tap Google Sign-In integration
+- Seamless authentication experience
+- Automatic account creation for new users
+
+#### 💾 Offline Mode with Automatic Synchronization
+- Full offline functionality using Room database
+- Automatic sync when connectivity is restored
+- Smart conflict resolution
+- Sync status indicators
+
+#### 🔔 Real-Time Push Notification System
+- Task completion notifications
+- Due date reminders
+- High priority task alerts
+- Notification preferences and filtering
+- Unread badge counter
+
+#### 🌍 Multi-Language Support
+- Complete UI translation for English, Afrikaans, and isiZulu
+- Dynamic language switching
+- Over 200+ translated strings
+- Localized date/time formats
+
+#### 🔑 Forgot Password Functionality
+- Secure password reset via email
+- Custom branded email template
+- User-friendly validation and error handling
+
+**🐛 Bug Fixes:**
+- Fixed app crashes during task operations
+- Fixed notification persistence issues
+- Fixed language switching updates
+- Fixed offline sync conflicts
+
+**🔧 Technical Improvements:**
+- Comprehensive code comments and logging
+- Lifecycle-aware coroutines
+- Enhanced error handling
+- Improved architecture patterns
+
+**📚 Documentation:**
+- Enhanced README with comprehensive documentation
+- Code comments throughout codebase
+- Detailed release notes
+
+For complete release notes, see [RELEASE_NOTES.md](RELEASE_NOTES.md)
 
 ---
 

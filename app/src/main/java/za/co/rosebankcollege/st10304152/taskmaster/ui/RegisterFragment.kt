@@ -1,5 +1,6 @@
 package za.co.rosebankcollege.st10304152.taskmaster.ui
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,7 @@ class RegisterFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -121,6 +123,8 @@ class RegisterFragment : Fragment() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             try {
                 val account = task.getResult(ApiException::class.java)
+                // Show progress dialog AFTER user selects account
+                showProgressDialog("Creating account with Google...")
                 firebaseAuthWithGoogle(account)
             } catch (e: ApiException) {
                 Log.w("GoogleSignIn", "Google sign in failed", e)
@@ -133,8 +137,11 @@ class RegisterFragment : Fragment() {
      * Initiate Google Sign-In process
      */
     private fun signInWithGoogle() {
-        val signInIntent = googleSignInClient.signInIntent
-        googleSignInLauncher.launch(signInIntent)
+        // Sign out first to force account selection
+        googleSignInClient.signOut().addOnCompleteListener {
+            val signInIntent = googleSignInClient.signInIntent
+            googleSignInLauncher.launch(signInIntent)
+        }
     }
 
     /**
@@ -142,19 +149,54 @@ class RegisterFragment : Fragment() {
      */
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount?) {
         Log.d("GoogleSignIn", "firebaseAuthWithGoogle:${acct?.id}")
+        
+        updateProgressDialog("Setting up your account...")
 
         val credential = GoogleAuthProvider.getCredential(acct?.idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
+                hideProgressDialog()
                 if (task.isSuccessful) {
                     Log.d("GoogleSignIn", "signInWithCredential:success")
                     val user = auth.currentUser
-                    Toast.makeText(requireContext(), "Welcome ${user?.displayName}!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Account created! Welcome ${user?.displayName}! 🎉", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_register_to_home)
                 } else {
                     Log.w("GoogleSignIn", "signInWithCredential:failure", task.exception)
-                    Toast.makeText(requireContext(), "Authentication failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Account creation failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    /**
+     * Show progress dialog with custom message
+     */
+    private fun showProgressDialog(message: String) {
+        progressDialog = ProgressDialog(requireContext()).apply {
+            setMessage(message)
+            setCancelable(false)
+            setCanceledOnTouchOutside(false)
+            show()
+        }
+    }
+
+    /**
+     * Update progress dialog message
+     */
+    private fun updateProgressDialog(message: String) {
+        progressDialog?.setMessage(message)
+    }
+
+    /**
+     * Hide progress dialog
+     */
+    private fun hideProgressDialog() {
+        progressDialog?.dismiss()
+        progressDialog = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        hideProgressDialog()
     }
 }

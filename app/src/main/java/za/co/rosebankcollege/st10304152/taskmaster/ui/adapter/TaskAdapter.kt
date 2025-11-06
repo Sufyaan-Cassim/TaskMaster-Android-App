@@ -19,6 +19,7 @@ class TaskAdapter(
         val title: TextView = itemView.findViewById(R.id.task_title)
         val description: TextView = itemView.findViewById(R.id.task_description)
         val dueDate: TextView = itemView.findViewById(R.id.task_due_date)
+        val category: TextView = itemView.findViewById(R.id.task_category)
         val checkbox: MaterialCheckBox = itemView.findViewById(R.id.task_checkbox)
         val priorityIndicator: View = itemView.findViewById(R.id.priority_indicator)
     }
@@ -31,10 +32,27 @@ class TaskAdapter(
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = tasks[position]
+        val context = holder.itemView.context
         
         holder.title.text = task.title
         holder.description.text = task.description
-        holder.dueDate.text = task.dueDate
+        
+        // Localize dueDate display (e.g., "Today" -> localized version)
+        val localizedDueDate = when (task.dueDate.lowercase()) {
+            "today" -> context.getString(R.string.today)
+            "tomorrow" -> context.getString(R.string.tomorrow)
+            else -> task.dueDate
+        }
+        holder.dueDate.text = localizedDueDate
+        
+        // Set category (using priority as category for now, localized)
+        val localizedPriority = when (task.priority.lowercase()) {
+            "high" -> context.getString(R.string.high)
+            "medium" -> context.getString(R.string.medium)
+            "low" -> context.getString(R.string.low)
+            else -> task.priority
+        }
+        holder.category.text = localizedPriority
         
         // Set priority indicator color
         val priorityColorRes = when (task.priority.lowercase()) {

@@ -1,5 +1,6 @@
 package za.co.rosebankcollege.st10304152.taskmaster.ui
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -25,6 +26,7 @@ class LoginFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,20 +81,16 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_login_to_register)
         }
 
-        // Forgot password
+        // Forgot password - navigate to forgot password fragment
         view.findViewById<View>(R.id.forgot_password)?.setOnClickListener {
             val email = emailEt.text.toString().trim()
-            if (email.isEmpty()) {
-                Toast.makeText(requireContext(), "Enter email to reset password", Toast.LENGTH_SHORT).show()
-            } else {
-                auth.sendPasswordResetEmail(email).addOnCompleteListener { resetTask ->
-                    if (resetTask.isSuccessful) {
-                        Toast.makeText(requireContext(), "Password reset email sent", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(requireContext(), "Error: ${resetTask.exception?.message}", Toast.LENGTH_SHORT).show()
-                    }
+            // Pass email to forgot password fragment if available
+            val bundle = Bundle().apply {
+                if (email.isNotEmpty()) {
+                    putString("email", email)
                 }
             }
+            findNavController().navigate(R.id.action_login_to_forgot_password, bundle)
         }
     }
 
@@ -118,6 +116,8 @@ class LoginFragment : Fragment() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             try {
                 val account = task.getResult(ApiException::class.java)
+                // Show progress dialog AFTER user selects account
+                showProgressDialog("Signing in with Google...")
                 firebaseAuthWithGoogle(account)
             } catch (e: ApiException) {
                 Log.w("GoogleSignIn", "Google sign in failed", e)
@@ -130,8 +130,11 @@ class LoginFragment : Fragment() {
      * Initiate Google Sign-In process
      */
     private fun signInWithGoogle() {
-        val signInIntent = googleSignInClient.signInIntent
-        googleSignInLauncher.launch(signInIntent)
+        // Sign out first to force account selection
+        googleSignInClient.signOut().addOnCompleteListener {
+            val signInIntent = googleSignInClient.signInIntent
+            googleSignInLauncher.launch(signInIntent)
+        }
     }
 
     /**
@@ -139,19 +142,54 @@ class LoginFragment : Fragment() {
      */
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount?) {
         Log.d("GoogleSignIn", "firebaseAuthWithGoogle:${acct?.id}")
+        
+        updateProgressDialog("Authenticating with Firebase...")
 
         val credential = GoogleAuthProvider.getCredential(acct?.idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
+                hideProgressDialog()
                 if (task.isSuccessful) {
                     Log.d("GoogleSignIn", "signInWithCredential:success")
                     val user = auth.currentUser
-                    Toast.makeText(requireContext(), "Welcome ${user?.displayName}!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Welcome ${user?.displayName}! 🎉", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_login_to_home)
                 } else {
                     Log.w("GoogleSignIn", "signInWithCredential:failure", task.exception)
                     Toast.makeText(requireContext(), "Authentication failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    /**
+     * Show progress dialog with custom message
+     */
+    private fun showProgressDialog(message: String) {
+        progressDialog = ProgressDialog(requireContext()).apply {
+            setMessage(message)
+            setCancelable(false)
+            setCanceledOnTouchOutside(false)
+            show()
+        }
+    }
+
+    /**
+     * Update progress dialog message
+     */
+    private fun updateProgressDialog(message: String) {
+        progressDialog?.setMessage(message)
+    }
+
+    /**
+     * Hide progress dialog
+     */
+    private fun hideProgressDialog() {
+        progressDialog?.dismiss()
+        progressDialog = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        hideProgressDialog()
     }
 }

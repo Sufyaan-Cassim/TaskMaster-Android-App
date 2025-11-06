@@ -60,6 +60,9 @@ class TermsOfServiceFragment : Fragment() {
     }
 
     private fun getTermsOfServiceContent(): String {
+        val dateFormat = java.text.SimpleDateFormat("MMMM dd, yyyy", resources.configuration.locales[0])
+        val formattedDate = dateFormat.format(java.util.Date())
+        
         return """
         <!DOCTYPE html>
         <html>
@@ -68,10 +71,7 @@ class TermsOfServiceFragment : Fragment() {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <style>
                 @media (prefers-color-scheme: dark) {
-                    body {
-                        background-color: #121212;
-                        color: #ffffff;
-                    }
+                    body { background-color: #121212; color: #ffffff; }
                     h1 { color: #90caf9; border-bottom-color: #90caf9; }
                     h2 { color: #e0e0e0; }
                     h3 { color: #b0b0b0; }
@@ -80,10 +80,7 @@ class TermsOfServiceFragment : Fragment() {
                     .highlight { background-color: #2d2d2d; color: #ffffff; border-left-color: #ffc107; }
                 }
                 @media (prefers-color-scheme: light) {
-                    body {
-                        background-color: #ffffff;
-                        color: #333333;
-                    }
+                    body { background-color: #ffffff; color: #333333; }
                     h1 { color: #1976d2; border-bottom-color: #1976d2; }
                     h2 { color: #424242; }
                     h3 { color: #616161; }
@@ -91,13 +88,7 @@ class TermsOfServiceFragment : Fragment() {
                     .contact-info { background-color: #f5f5f5; color: #333333; }
                     .highlight { background-color: #fff3cd; color: #333333; border-left-color: #ffc107; }
                 }
-                body {
-                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                    line-height: 1.6;
-                    max-width: 800px;
-                    margin: 0 auto;
-                    padding: 20px;
-                }
+                body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }
                 h1 { border-bottom: 2px solid; padding-bottom: 10px; }
                 h2 { margin-top: 30px; }
                 p { margin-bottom: 15px; }
@@ -109,84 +100,84 @@ class TermsOfServiceFragment : Fragment() {
             </style>
         </head>
         <body>
-            <h1>Terms of Service</h1>
-            <p class="last-updated">Last updated: ${java.text.SimpleDateFormat("MMMM dd, yyyy", java.util.Locale.getDefault()).format(java.util.Date())}</p>
+            <h1>${getString(R.string.terms_of_service)}</h1>
+            <p class="last-updated">${getString(R.string.last_updated)}: $formattedDate</p>
             
             <div class="highlight">
-                <p><strong>Important:</strong> By using TaskMaster, you agree to be bound by these Terms of Service. Please read them carefully.</p>
+                <p><strong>${getString(R.string.terms_important)}:</strong> ${getString(R.string.terms_important_note)}</p>
             </div>
 
-            <h2>1. Acceptance of Terms</h2>
-            <p>By downloading, installing, or using the TaskMaster mobile application ("App"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, please do not use our App.</p>
+            <h2>${getString(R.string.terms_acceptance_title)}</h2>
+            <p>${getString(R.string.terms_acceptance_desc)}</p>
 
-            <h2>2. Description of Service</h2>
-            <p>TaskMaster is a task management application that allows users to:</p>
+            <h2>${getString(R.string.terms_description_title)}</h2>
+            <p>${getString(R.string.terms_description_desc)}</p>
             <ul>
-                <li>Create, edit, and organize tasks</li>
-                <li>Set due dates and priorities</li>
-                <li>Track task completion status</li>
-                <li>Sync data across multiple devices</li>
-                <li>Customize app settings and preferences</li>
+                <li>${getString(R.string.terms_service_item1)}</li>
+                <li>${getString(R.string.terms_service_item2)}</li>
+                <li>${getString(R.string.terms_service_item3)}</li>
+                <li>${getString(R.string.terms_service_item4)}</li>
+                <li>${getString(R.string.terms_service_item5)}</li>
             </ul>
 
-            <h2>3. User Accounts</h2>
-            <p>To use TaskMaster, you must create an account by providing accurate and complete information. You are responsible for:</p>
+            <h2>${getString(R.string.terms_accounts_title)}</h2>
+            <p>${getString(R.string.terms_accounts_desc)}</p>
             <ul>
-                <li>Maintaining the confidentiality of your account credentials</li>
-                <li>All activities that occur under your account</li>
-                <li>Notifying us immediately of any unauthorized use</li>
-                <li>Ensuring your account information remains accurate and up-to-date</li>
+                <li>${getString(R.string.terms_accounts_item1)}</li>
+                <li>${getString(R.string.terms_accounts_item2)}</li>
+                <li>${getString(R.string.terms_accounts_item3)}</li>
+                <li>${getString(R.string.terms_accounts_item4)}</li>
             </ul>
 
-            <h2>4. Acceptable Use</h2>
-            <p>You agree to use TaskMaster only for lawful purposes and in accordance with these Terms. You agree NOT to:</p>
+            <h2>${getString(R.string.terms_acceptable_title)}</h2>
+            <p>${getString(R.string.terms_acceptable_desc)}</p>
             <ul>
-                <li>Use the App for any illegal or unauthorized purpose</li>
-                <li>Attempt to gain unauthorized access to our systems</li>
-                <li>Interfere with or disrupt the App's functionality</li>
-                <li>Upload malicious code or harmful content</li>
-                <li>Violate any applicable laws or regulations</li>
+                <li>${getString(R.string.terms_acceptable_item1)}</li>
+                <li>${getString(R.string.terms_acceptable_item2)}</li>
+                <li>${getString(R.string.terms_acceptable_item3)}</li>
+                <li>${getString(R.string.terms_acceptable_item4)}</li>
+                <li>${getString(R.string.terms_acceptable_item5)}</li>
             </ul>
 
-            <h2>5. Intellectual Property</h2>
-            <p>The TaskMaster App, including its design, functionality, and content, is protected by intellectual property laws. You may not:</p>
+            <h2>${getString(R.string.terms_ip_title)}</h2>
+            <p>${getString(R.string.terms_ip_desc)}</p>
             <ul>
-                <li>Copy, modify, or distribute the App</li>
-                <li>Reverse engineer or attempt to extract source code</li>
-                <li>Use our trademarks or logos without permission</li>
-                <li>Create derivative works based on our App</li>
+                <li>${getString(R.string.terms_ip_item1)}</li>
+                <li>${getString(R.string.terms_ip_item2)}</li>
+                <li>${getString(R.string.terms_ip_item3)}</li>
+                <li>${getString(R.string.terms_ip_item4)}</li>
             </ul>
 
-            <h2>6. Data and Privacy</h2>
-            <p>Your privacy is important to us. Please review our Privacy Policy to understand how we collect, use, and protect your information. By using our App, you consent to the collection and use of your data as described in our Privacy Policy.</p>
+            <h2>${getString(R.string.terms_data_title)}</h2>
+            <p>${getString(R.string.terms_data_desc)}</p>
 
-            <h2>7. Service Availability</h2>
-            <p>We strive to provide reliable service, but we cannot guarantee that the App will be available at all times. We may:</p>
+            <h2>${getString(R.string.terms_availability_title)}</h2>
+            <p>${getString(R.string.terms_availability_desc)}</p>
             <ul>
-                <li>Perform maintenance and updates</li>
-                <li>Experience technical difficulties</li>
-                <li>Modify or discontinue features</li>
-                <li>Suspend service for security reasons</li>
+                <li>${getString(R.string.terms_availability_item1)}</li>
+                <li>${getString(R.string.terms_availability_item2)}</li>
+                <li>${getString(R.string.terms_availability_item3)}</li>
+                <li>${getString(R.string.terms_availability_item4)}</li>
             </ul>
 
-            <h2>8. Limitation of Liability</h2>
-            <p>To the maximum extent permitted by law, TaskMaster and its developers shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of profits, data, or use, arising from your use of the App.</p>
+            <h2>${getString(R.string.terms_liability_title)}</h2>
+            <p>${getString(R.string.terms_liability_desc)}</p>
 
-            <h2>9. Termination</h2>
-            <p>We may terminate or suspend your account at any time, with or without notice, for any reason, including violation of these Terms. You may also terminate your account at any time by deleting the App and contacting us.</p>
+            <h2>${getString(R.string.terms_termination_title)}</h2>
+            <p>${getString(R.string.terms_termination_desc)}</p>
 
-            <h2>10. Changes to Terms</h2>
-            <p>We reserve the right to modify these Terms at any time. We will notify users of significant changes through the App or other means. Your continued use of the App after changes constitutes acceptance of the new Terms.</p>
+            <h2>${getString(R.string.terms_changes_title)}</h2>
+            <p>${getString(R.string.terms_changes_desc)}</p>
 
-            <h2>11. Governing Law</h2>
-            <p>These Terms are governed by the laws of South Africa. Any disputes arising from these Terms or your use of the App will be subject to the jurisdiction of South African courts.</p>
+            <h2>${getString(R.string.terms_governing_title)}</h2>
+            <p>${getString(R.string.terms_governing_desc)}</p>
 
             <div class="contact-info">
-                <h3>Contact Information</h3>
-                <p>If you have any questions about these Terms of Service, please contact us:</p>
-                <p><strong>Email:</strong> legal@taskmaster.app</p>
-                <p><strong>Address:</strong> Rosebank College, South Africa</p>
-                <p><strong>Phone:</strong> +27 (0) 11 123 4567</p>
+                <h3>${getString(R.string.contact_information)}</h3>
+                <p>${getString(R.string.terms_contact_desc)}</p>
+                <p><strong>${getString(R.string.email)}:</strong> legal@taskmaster.app</p>
+                <p><strong>${getString(R.string.address)}:</strong> ${getString(R.string.address_value)}</p>
+                <p><strong>${getString(R.string.phone)}:</strong> ${getString(R.string.phone_value)}</p>
             </div>
         </body>
         </html>

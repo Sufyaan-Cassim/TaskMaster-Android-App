@@ -1,46 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Umlawuli Wezisebenzi</string>
-    <string name="welcome_text">Siyakwamukela!</string>
-    <string name="subtitle">Ngena ukuze uqhubeke nokulawula izisebenzi zakho</string>
-    <string name="email_hint">Ikheli Le-imeyili</string>
+    <string name="app_name">TaskMaster</string>
+    <string name="welcome_text">Siyakwamukela futhi!</string>
+    <string name="subtitle">Ngena ukuze uqhubeke nokuphatha imisebenzi yakho</string>
+    <string name="email_hint">Ikheli le-imeyili</string>
     <string name="password_hint">Iphasiwedi</string>
     <string name="sign_in">Ngena</string>
     <string name="sign_up">Bhalisa</string>
-    <string name="forgot_password">Ukhohlwe Iphasiwedi?</string>
+    <string name="forgot_password">Ukhohlwe iphasiwedi?</string>
+    <string name="forgot_password_title">Buyisela iphasiwedi</string>
+    <string name="forgot_password_subtitle">Faka ikheli lakho le-imeyili bese sizokuthumela isixhumanisi sokubuyisela iphasiwedi yakho</string>
+    <string name="send_reset_email">Thumela i-imeyili yokubuyisela</string>
+    <string name="reset_email_sent_title">Bheka i-imeyili yakho</string>
+    <string name="reset_email_sent_description">Sithumele isixhumanisi sokubuyisela iphasiwedi ekhelini lakho le-imeyili. Sicela ubheke ibhokisi lakho lokungenayo bese ulandela imiyalo yokubuyisela iphasiwedi yakho.</string>
+    <string name="remember_password">Uyayikhumbula iphasiwedi yakho? </string>
+    <string name="invalid_email_format">Sicela ufake ikheli le-imeyili elivumelekile</string>
+    <string name="failed_to_send_reset_email">Ayikwazanga ukuthumela i-imeyili yokubuyisela. Sicela uzame futhi.</string>
+    <string name="too_many_requests">Izicelo eziningi kakhulu. Sicela ulinde imizuzu embalwa ngaphambi kokuthi uzame futhi.</string>
+    <string name="network_error">Iphutha lenethwekhi. Sicela ubheke ukuxhumeka kwakho kwe-intanethi bese uzama futhi.</string>
     <string name="dont_have_account">Awunayo i-akhawunti? </string>
-    <string name="have_account">Usenayo i-akhawunti? </string>
+    <string name="have_account">Usunayo i-akhawunti? </string>
     <string name="login">Ngena</string>
     <string name="register">Bhalisa</string>
     <string name="home">Ikhaya</string>
     <string name="settings">Izilungiselelo</string>
     <string name="notifications">Izaziso</string>
-    <string name="tasks">Izisebenzi</string>
-    <string name="add_task">Engeza Isisebenzi</string>
-    <string name="edit_task">Hlela Isisebenzi</string>
-    <string name="delete_task">Susa Isisebenzi</string>
-    <string name="mark_complete">Phawula Ukugcwaliseka</string>
-    <string name="mark_pending">Phawula Ukulinda</string>
-    <string name="all_tasks">Zonke Izisebenzi</string>
-    <string name="pending_tasks">Izisebenzi Ezilindile</string>
-    <string name="completed_tasks">Izisebenzi Ezigcwele</string>
+    <string name="tasks">Imisebenzi</string>
+    <string name="add_task">Nezela umsebenzi</string>
+    <string name="edit_task">Hlela umsebenzi</string>
+    <string name="delete_task">Susa umsebenzi</string>
+    <string name="mark_complete">Phawula uqediwe</string>
+    <string name="mark_pending">Phawula kusalindwe</string>
+    <string name="all_tasks">Yonke imisebenzi</string>
+    <string name="pending_tasks">Imisebenzi esalindwe</string>
+    <string name="completed_tasks">Imisebenzi eqediwe</string>
     <string name="language">Ulimi</string>
-    <string name="theme">Isihloko</string>
-    <string name="dark_theme">Isihloko Esimnyama</string>
-    <string name="light_theme">Isihloko Esikhanyayo</string>
-    <string name="notifications_enabled">Vumela izaziso</string>
-    <string name="privacy_policy">Inqubomgomo Yobumfihlo</string>
-    <string name="terms_of_service">Imigomo Yesevisi</string>
+    <string name="theme">Indikimba</string>
+    <string name="dark_theme">Indikimba emnyama</string>
+    <string name="light_theme">Indikimba ekhanyayo</string>
+    <string name="notifications_enabled">Vula izaziso</string>
+    <string name="privacy_policy">Inqubomgomo yobumfihlo</string>
+    <string name="terms_of_service">Imigomo yokusebenzisa</string>
     <string name="logout">Phuma</string>
-    <string name="edit_profile">Hlela Iphrofayili</string>
-    <string name="app_information">Ulwazi Lwe-App</string>
+    <string name="edit_profile">Hlela iphrofayela</string>
+    <string name="app_information">Ulwazi lohlelo</string>
     <string name="version">Inguqulo</string>
-    <string name="build">Yakha</string>
-    <string name="app_name_label">Igama Le-App</string>
-    
-    <!-- Existing task-related strings -->
-    <string name="task_details">Imininingwane Yesisebenzi</string>
-    <string name="task_title">Isihloko sesisebenzi</string>
+    <string name="build">Ukwakha</string>
+    <string name="app_name_label">Igama lohlelo</string>
+    <string name="preferences">Okuthandwayo</string>
+    <string name="task_reminders_one_day">Izikhumbuzi zomsebenzi (usuku olu-1 ngaphambilini)</string>
+    <string name="my_tasks">Imisebenzi yami</string>
+    <string name="offline_mode_message">Imodi engaxhunyiwe - Izinguquko zizohlanganiswa uma uxhumekile</string>
+    <string name="all">Konke</string>
+    <string name="pending">Kusalindwe</string>
+    <string name="completed">Kuqediwe</string>
+    <string name="welcome_back">Siyakwamukela futhi!</string>
+    <string name="welcome_back_name">Siyakwamukela futhi, %1$s!</string>
+    <string name="today_task_count_zero">Unemisebenzi engu-0 yanamuhla</string>
+    <string name="no_tasks_yet">Ayikho imisebenzi okwamanje</string>
+    <string name="tap_plus_to_create">Thepha inkinobho ethi + ukuze udale umsebenzi wokuqala</string>
+    <string name="mark_all_read">Phawula konke kufundiwe</string>
+    <string name="you_have_n_notifications">Unanezaziso ezingu-%1$d%2$s</string>
+    <string name="n_unread_messages">%1$d umlayezo ongafundiwe%2$s</string>
+    <string name="unread">Okungafundiwe</string>
+    <string name="important">Okubalulekile</string>
+    <string name="no_notifications_yet">Azikho izaziso okwamanje</string>
+    <string name="tap_to_refresh_notifications">Thepha ukuze uvuselele izaziso</string>
+    <string name="task_details">Imininingwane yomsebenzi</string>
+    <string name="english">IsiNgisi</string>
+    <string name="afrikaans">Afrikaans</string>
+    <string name="zulu">IsiZulu</string>
+    <string name="task_title">Isihloko somsebenzi</string>
     <string name="description">Incazelo</string>
     <string name="priority">Okubalulekile</string>
     <string name="low">Okuphansi</string>
@@ -53,57 +82,158 @@
     <string name="time">Isikhathi</string>
     <string name="due_time">Isikhathi esifanele</string>
     <string name="_9_00_am">09:00</string>
-    <string name="reminders">Izikhumbuzo</string>
-    <string name="enable_reminders">Vumela izikhumbuzo</string>
+    <string name="reminders">Izikhumbuzi</string>
+    <string name="enable_reminders">Vumela izikhumbuzi</string>
     <string name="reminder">Isikhumbuzo</string>
     <string name="remind_me">Ngikhumbuze</string>
     <string name="_15_min_before">15 min ngaphambi</string>
     <string name="cancel">Khansela</string>
-    <string name="save_task">Gcina Isisebenzi</string>
-    
+    <string name="save_task">Gcina umsebenzi</string>
+
     <!-- Change Password -->
-    <string name="change_password">Shintsha Iphasiwedi</string>
+    <string name="change_password">Shintsha iphasiwedi</string>
     <string name="current_password">Iphasiwedi yamanje</string>
     <string name="new_password">Iphasiwedi entsha</string>
     <string name="confirm_password">Qinisekisa iphasiwedi entsha</string>
-    <string name="password_changed_successfully">Iphasiwedi ishintshiwe ngempumelelo</string>
-    <string name="password_change_failed">Ayikwazanga ukushintsha iphasiwedi</string>
-    <string name="authentication_failed">Ukuqinisekisa kuhlulekile</string>
+    <string name="password_changed_successfully">Iphasiwedi ishintshwe ngempumelelo</string>
+    <string name="password_change_failed">Yehlulekile ukushintsha iphasiwedi</string>
+    <string name="authentication_failed">Ukuqinisekisa kwehlulekile</string>
     <string name="password_too_short">Iphasiwedi entsha kufanele ibe okungenani izinhlamvu eziyisithupha</string>
     <string name="passwords_dont_match">Amaphasiwedi awahambelani</string>
     <string name="fill_all_fields">Sicela ugcwalise wonke amasimu</string>
-    <string name="user_not_authenticated">Umsebenzisi akakaqinisekiswanga</string>
-    <string name="changing">Iyashintsha...</string>
-    
-    <!-- Language Options -->
-    <string name="english">English</string>
-    <string name="afrikaans">Afrikaans</string>
-    <string name="zulu">IsiZulu</string>
-    
+    <string name="user_not_authenticated">Umsebenzisi akakaqinisekiswa</string>
+    <string name="changing">Iyashintsha…</string>
+
     <!-- Profile -->
-    <string name="profile">Iphrofayili</string>
+    <string name="profile">Iphrofayela</string>
     <string name="username">Igama lomsebenzisi</string>
     <string name="email">I-imeyili</string>
     <string name="save">Gcina</string>
     <string name="edit">Hlela</string>
     <string name="user">Umsebenzisi</string>
-    
+
     <!-- Account -->
     <string name="account">I-akhawunti</string>
     <string name="change_password_option">Shintsha iphasiwedi</string>
-    
+
     <!-- General -->
     <string name="ok">Kulungile</string>
     <string name="yes">Yebo</string>
     <string name="no">Cha</string>
-    <string name="loading">Iyayilayisha...</string>
+    <string name="loading">Iyalayisha…</string>
     <string name="error">Iphutha</string>
     <string name="success">Impumelelo</string>
-    <string name="changing_language">Iyashintsha ulimi...</string>
-    <string name="language_changed">Ulimi lushintshiwe ngempumelelo</string>
-    
+    <string name="changing_language">Iyashintsha ulimi…</string>
+    <string name="language_changed">Ulimi lushintshwe ngempumelelo</string>
+
     <!-- Register -->
-    <string name="create_account">Dala I-akhawunti</string>
+    <string name="create_account">Dala i-akhawunti</string>
     <string name="join_taskmaster">Joyina i-TaskMaster bese uqala ukuhlela impilo yakho</string>
 
+    <!-- Google Sign-In -->
+    <string name="default_web_client_id">445877414792-nn3c333385njo3jtp34k3ea1ua0e88pu.apps.googleusercontent.com</string>
+    <string name="continue_with_google">Qhubeka nge-Google</string>
+
+    <!-- Additional UI Strings -->
+    <string name="add_new_task">Engeza umsebenzi omusha</string>
+    <string name="or">NOMA</string>
+    <string name="confirm_password_hint">Qinisekisa iphasiwedi</string>
+    <string name="terms_agreement">Ngivumelana neMigomo Yesevisi kanye neNqubomgomo Yobumfihlo</string>
+    <string name="tap_to_change_photo">Thepha ukuze ushintshe isithombe</string>
+    <string name="profile_information">Ulwazi lwephrofayela</string>
+    <string name="email_cannot_be_changed">I-imeyili ayikwazi ukushintshwa</string>
+    <string name="save_changes">Gcina izinguquko</string>
+    <string name="task_information">Ulwazi lomsebenzi</string>
+    <string name="created">Kudalwe</string>
+    <string name="category">Isigaba</string>
+    <string name="n_tasks">%1$d imisebenzi</string>
+    <string name="welcome_to_taskmaster">Siyakwamukela e-TaskMaster</string>
+    <string name="onboarding_description">Umlingani wakho womphakathi okuwusizo olusiza ukuhlela futhi ugxile kulokho okubaluleke kakhulu.</string>
+    <string name="work_anywhere_anytime">Sebenza noma kuphi, noma nini</string>
+    <string name="work_anywhere_anytime_desc">Imisebenzi yakho ihlanganiswa ngokuzenzakalelayo uma uxhumekile. Sebenza ungaxhunyiwe bese uhlanganisa uma usuxhumekile futhi.</string>
+    <string name="skip">Yeza</string>
+    <string name="next">Okulandelayo</string>
+    <string name="get_started">Qala</string>
+    <string name="organize_your_life">Hlela impilo yakho, umsebenzi owodwa ngesikhathi</string>
+    <string name="getting_things_ready">Iyakulungisa izinto…</string>
+    <string name="task_due_soon">Umsebenzi ozokwenzeka maduze</string>
+    <string name="task_due_soon_message">Umsebenzi wakho \'%1$s\' uzokwenzeka ngo-%2$s</string>
+    <!-- Notification Titles/Messages (dynamic) -->
+    <string name="task_due_today_title">Umsebenzi uzokwenzeka namuhla</string>
+    <string name="task_due_today_message">\'%1$s\' uzokwenzeka namuhla</string>
+    <string name="task_completed_title">Umsebenzi uqediwe</string>
+    <string name="task_completed_message">\'%1$s\' usuqediwe</string>
+    <string name="task_created_title">Umsebenzi omusha wadala</string>
+    <string name="task_created_message">Umsebenzi \'%1$s\' ungezwe ohlwini lwakho</string>
+    <string name="task_overdue_title">Umsebenzi udlule isikhathi</string>
+    <string name="task_overdue_message">Umsebenzi \'%1$s\' udlule isikhathi! Sicela uwugcwalise maduze.</string>
+    <string name="high_priority_task_title">Umsebenzi obalulekile kakhulu</string>
+    <string name="high_priority_task_message">\'%1$s\' uwumsebenzi obalulekile kakhulu</string>
+    <string name="status">Isimo</string>
+    <string name="profile_picture">Isithombe sephrofayela</string>
+    <string name="no_tasks">Azikho imisebenzi</string>
+
+    <!-- Dynamic Text Strings -->
+    <string name="you_have_n_tasks_today">Unemisebenzi engu-%1$d%2$s yanamuhla</string>
+    <string name="no_completed_tasks">Azikho imisebenzi eqediwe</string>
+    <string name="complete_some_tasks">Gcwalisa imisebenzi ethile ukuze uyibone lapha</string>
+    <string name="mark_incomplete">Phawula okungagcwele</string>
+    <string name="you_have_n_notifications_count">Unanezaziso ezingu-%1$d%2$s</string>
+    <string name="n_unread_messages_count">%1$d umlayezo ongafundiwe%2$s</string>
+    
+    <!-- Share Menu -->
+    <string name="share">Yabelana</string>
+    <string name="more">Okuningi</string>
+    <string name="duplicate_task">Phinda umsebenzi</string>
+    <string name="export_task">Khipha umsebenzi</string>
+    <string name="add_to_calendar">Engeza ekhalendheni</string>
+    <string name="share_task">Yabelana ngomsebenzi</string>
+    
+    <!-- Share Content -->
+    <string name="share_task_title">Umsebenzi: %1$s</string>
+    <string name="share_task_description">Incazelo: %1$s</string>
+    <string name="share_task_priority">Okubalulekile: %1$s</string>
+    <string name="share_task_due_date">Usuku olufanele: %1$s ngo-%2$s</string>
+    <string name="share_task_status">Isimo: %1$s</string>
+    <string name="status_completed">Kuqediwe</string>
+    <string name="status_in_progress">Kuyaqhubeka</string>
+    
+    <!-- Date Formatting -->
+    <string name="yesterday">Izolo</string>
+    <string name="tomorrow">Kusasa</string>
+    <string name="n_days_ago">%1$d izinsuku ezedlule</string>
+    
+    <!-- Time Formatting -->
+    <string name="just_now">Manje nje</string>
+    <string name="n_minutes_ago">%1$d min ezedlule</string>
+    <string name="n_hours_ago">%1$d h ezedlule</string>
+
+    <!-- Task Count -->
+    <string name="n_tasks_count">%1$d umsebenzi%2$s</string>
+    
+    <!-- Dialog Confirmations -->
+    <string name="delete_task_title">Susa umsebenzi</string>
+    <string name="delete_task_message">Uqinisekile ukuthi ufuna ukususa lo msebenzi? Lesi sinyathelo asikwazi ukuhlehliswa.</string>
+    <string name="delete">Susa</string>
+    <string name="clear_all_notifications_title">Susa zonke izaziso</string>
+    <string name="clear_all_notifications_message">Uqinisekile ukuthi ufuna ukususa zonke izaziso? Lesi sinyathelo asikwazi ukuhlehliswa.</string>
+    <string name="clear_all">Susa konke</string>
+    
+    <!-- Reminder Time Options -->
+    <string name="reminder_time_title">Isikhathi sesikhumbuzo</string>
+    <string name="reminder_5_min_before">Iminithi engu-5 ngaphambi</string>
+    <string name="reminder_15_min_before">Iminithi engu-15 ngaphambi</string>
+    <string name="reminder_30_min_before">Iminithi engu-30 ngaphambi</string>
+    <string name="reminder_1_hour_before">Ihora elingu-1 ngaphambi</string>
+    <string name="reminder_2_hours_before">Amahora angu-2 ngaphambi</string>
+    
+    <!-- Update Task -->
+    <string name="update_task">Buyekeza umsebenzi</string>
+    
+    <!-- Task Validation/Error Messages -->
+    <string name="title_required">Isihloko siyadingeka</string>
+    <string name="failed_to_save_task">Kwehlulekile ukugcina umsebenzi: %1$s</string>
+    <string name="failed_to_update_task">Kwehlulekile ukubuyekeza umsebenzi: %1$s</string>
+    <string name="error_saving_task">Iphutha ekugcineni umsebenzi: %1$s</string>
+    <string name="unknown_error">Iphutha elingaziwa</string>
 </resources>

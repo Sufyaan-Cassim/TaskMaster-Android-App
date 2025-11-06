@@ -44,4 +44,8 @@
     <color name="text_primary">#FF000000</color>
     <color name="text_secondary">#FF666666</color>
     <color name="text_disabled">#FFB3B3B3</color>
+    
+    <!-- Status Colors -->
+    <color name="success_text">#FF2E7D32</color>
+    <color name="error_text">#FFC62828</color>
 </resources>

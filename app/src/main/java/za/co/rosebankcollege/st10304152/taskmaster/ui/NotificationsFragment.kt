@@ -26,9 +26,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import za.co.rosebankcollege.st10304152.taskmaster.R
 import za.co.rosebankcollege.st10304152.taskmaster.data.Notification
+import za.co.rosebankcollege.st10304152.taskmaster.data.NotificationRepository
 import za.co.rosebankcollege.st10304152.taskmaster.data.NotificationType
 import za.co.rosebankcollege.st10304152.taskmaster.data.Task
-import za.co.rosebankcollege.st10304152.taskmaster.data.TaskRepository
+import za.co.rosebankcollege.st10304152.taskmaster.data.TaskRepositoryLegacy
 import za.co.rosebankcollege.st10304152.taskmaster.ui.adapter.NotificationAdapter
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,7 +38,8 @@ class NotificationsFragment : Fragment() {
     
     private lateinit var notificationAdapter: NotificationAdapter
     private val notifications = mutableListOf<Notification>()
-    private val taskRepository = TaskRepository()
+    private val taskRepository = TaskRepositoryLegacy()
+    private lateinit var notificationRepository: NotificationRepository
     private lateinit var sharedPreferences: SharedPreferences
     private val gson = Gson()
     private var isCleared = false
@@ -59,6 +61,7 @@ class NotificationsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         
         sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        notificationRepository = NotificationRepository(requireContext())
         
         // Set up the toolbar
         setupToolbar()
@@ -95,7 +98,7 @@ class NotificationsFragment : Fragment() {
                 true
             }
             R.id.action_clear_all -> {
-                clearAllNotifications()
+                showClearAllConfirmationDialog()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -105,8 +108,7 @@ class NotificationsFragment : Fragment() {
     private fun setupRecyclerView() {
         val recyclerView = view?.findViewById<RecyclerView>(R.id.notifications_list)
         notificationAdapter = NotificationAdapter(notifications) { notification ->
-            // Handle notification click - could navigate to task details
-            // For now, just mark as read
+            // Mark as read (persist to DB)
             markNotificationAsRead(notification)
         }
         
@@ -155,25 +157,13 @@ class NotificationsFragment : Fragment() {
     }
     
     private fun loadNotifications() {
-        // Check if notifications were cleared and should stay cleared
-        val wasCleared = sharedPreferences.getBoolean("notifications_cleared", false)
-        
-        if (wasCleared || isCleared) {
-            // If notifications were cleared, don't reload them
-            isCleared = true
-            updateNotificationCount()
-            notificationAdapter.updateNotifications(notifications)
-            showEmptyStateIfNeeded()
-            return
-        }
-        
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val result = taskRepository.getTasks()
-                withContext(Dispatchers.Main) {
-                    if (result.isSuccess) {
-                        val tasks = result.getOrNull() ?: emptyList()
-                        generateNotificationsFromTasks(tasks)
+                // Get notifications from the database
+                notificationRepository.getNotifications().collect { notificationList ->
+                    withContext(Dispatchers.Main) {
+                        notifications.clear()
+                        notifications.addAll(notificationList)
                         updateNotificationCount()
                         notificationAdapter.updateNotifications(notifications)
                         showEmptyStateIfNeeded()
@@ -181,7 +171,11 @@ class NotificationsFragment : Fragment() {
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    // Handle error
+                    // Handle error - show empty state
+                    notifications.clear()
+                    updateNotificationCount()
+                    notificationAdapter.updateNotifications(notifications)
+                    showEmptyStateIfNeeded()
                 }
             }
         }
@@ -198,8 +192,8 @@ class NotificationsFragment : Fragment() {
                     val notificationId = "due_${task.id}"
                     notifications.add(Notification(
                         id = notificationId,
-                        title = "Task Due Today",
-                        message = "'${task.title}' is due today",
+                        title = getString(R.string.task_due_today_title),
+                        message = getString(R.string.task_due_today_message, task.title),
                         type = NotificationType.TASK_DUE,
                         priority = task.priority,
                         taskId = task.id,
@@ -210,8 +204,8 @@ class NotificationsFragment : Fragment() {
                     val notificationId = "completed_${task.id}"
                     notifications.add(Notification(
                         id = notificationId,
-                        title = "Task Completed",
-                        message = "'${task.title}' has been completed",
+                        title = getString(R.string.task_completed_title),
+                        message = getString(R.string.task_completed_message, task.title),
                         type = NotificationType.TASK_COMPLETED,
                         priority = "low",
                         taskId = task.id,
@@ -222,8 +216,8 @@ class NotificationsFragment : Fragment() {
                     val notificationId = "high_priority_${task.id}"
                     notifications.add(Notification(
                         id = notificationId,
-                        title = "High Priority Task",
-                        message = "'${task.title}' is a high priority task",
+                        title = getString(R.string.high_priority_task_title),
+                        message = getString(R.string.high_priority_task_message, task.title),
                         type = NotificationType.INFO,
                         priority = "high",
                         taskId = task.id,
@@ -257,39 +251,65 @@ class NotificationsFragment : Fragment() {
     }
     
     private fun markNotificationAsRead(notification: Notification) {
-        val index = notifications.indexOfFirst { it.id == notification.id }
-        if (index != -1) {
-            notifications[index] = notification.copy(isRead = true)
-            saveReadNotificationId(notification.id)
-            notificationAdapter.updateNotifications(notifications)
-            updateNotificationCount()
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                notificationRepository.markAsRead(notification.id, true)
+            } catch (_: Exception) { }
+            withContext(Dispatchers.Main) {
+                val index = notifications.indexOfFirst { it.id == notification.id }
+                if (index != -1) {
+                    notifications[index] = notification.copy(isRead = true)
+                    notificationAdapter.updateNotifications(notifications)
+                    updateNotificationCount()
+                }
+            }
         }
     }
     
     private fun markAllNotificationsAsRead() {
-        notifications.forEachIndexed { index, notification ->
-            if (!notification.isRead) {
-                notifications[index] = notification.copy(isRead = true)
-                saveReadNotificationId(notification.id)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                notificationRepository.markAllAsRead()
+            } catch (_: Exception) { }
+            withContext(Dispatchers.Main) {
+                notifications.forEachIndexed { index, notification ->
+                    if (!notification.isRead) {
+                        notifications[index] = notification.copy(isRead = true)
+                    }
+                }
+                notificationAdapter.updateNotifications(notifications)
+                updateNotificationCount()
             }
         }
-        notificationAdapter.updateNotifications(notifications)
-        updateNotificationCount()
     }
     
     private fun clearAllNotifications() {
-        notifications.clear()
-        clearAllReadNotificationIds()
-        isCleared = true
-        
-        // Save the cleared state persistently
-        sharedPreferences.edit()
-            .putBoolean("notifications_cleared", true)
-            .apply()
-        
-        notificationAdapter.updateNotifications(notifications)
-        updateNotificationCount()
-        showEmptyStateIfNeeded(true)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                notificationRepository.clearAllNotifications()
+                withContext(Dispatchers.Main) {
+                    notifications.clear()
+                    notificationAdapter.updateNotifications(notifications)
+                    updateNotificationCount()
+                    showEmptyStateIfNeeded(true)
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    // Handle error
+                }
+            }
+        }
+    }
+    
+    private fun showClearAllConfirmationDialog() {
+        com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.clear_all_notifications_title))
+            .setMessage(getString(R.string.clear_all_notifications_message))
+            .setPositiveButton(getString(R.string.clear_all)) { _, _ ->
+                clearAllNotifications()
+            }
+            .setNegativeButton(getString(R.string.cancel), null)
+            .show()
     }
     
     private fun getReadNotificationIds(): Set<String> {
@@ -395,8 +415,16 @@ class NotificationsFragment : Fragment() {
         val totalCount = notifications.size
         val unreadCount = notifications.count { !it.isRead }
         
-        view?.findViewById<TextView>(R.id.notification_count)?.text = "You have $totalCount notification${if (totalCount != 1) "s" else ""}"
-        view?.findViewById<TextView>(R.id.unread_count)?.text = "$unreadCount unread message${if (unreadCount != 1) "s" else ""}"
+        view?.findViewById<TextView>(R.id.notification_count)?.text = getString(
+            R.string.you_have_n_notifications_count,
+            totalCount,
+            if (totalCount != 1) "s" else ""
+        )
+        view?.findViewById<TextView>(R.id.unread_count)?.text = getString(
+            R.string.n_unread_messages_count,
+            unreadCount,
+            if (unreadCount != 1) "s" else ""
+        )
     }
     
     private fun showEmptyStateIfNeeded(isEmpty: Boolean = notifications.isEmpty()) {

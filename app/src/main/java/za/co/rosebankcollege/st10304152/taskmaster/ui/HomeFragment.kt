@@ -2,6 +2,7 @@ package za.co.rosebankcollege.st10304152.taskmaster.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,22 +17,28 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import androidx.lifecycle.lifecycleScope
 import za.co.rosebankcollege.st10304152.taskmaster.R
 import za.co.rosebankcollege.st10304152.taskmaster.data.Task
-import za.co.rosebankcollege.st10304152.taskmaster.data.TaskRepository
+import za.co.rosebankcollege.st10304152.taskmaster.data.TaskRepositoryOffline
 import za.co.rosebankcollege.st10304152.taskmaster.ui.adapter.TaskAdapter
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.badge.BadgeUtils
+import za.co.rosebankcollege.st10304152.taskmaster.data.NotificationRepository
 
 class HomeFragment : Fragment() {
     
     private lateinit var taskAdapter: TaskAdapter
     private val tasks = mutableListOf<Task>()
-    private val taskRepository = TaskRepository()
+    private lateinit var taskRepository: TaskRepositoryOffline
     private var isLoadingTasks = false
     private var isUpdatingTask = false
+    private lateinit var notificationRepository: NotificationRepository
+    private var notificationsBadge: BadgeDrawable? = null
     
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,13 +51,19 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
+        // Initialize offline repository
+        taskRepository = TaskRepositoryOffline(requireContext())
+        notificationRepository = NotificationRepository(requireContext())
+        
         setupToolbar()
+        setupNotificationBadge()
         setupRecyclerView()
         setupFilterChips()
         setupFab()
         updateTaskCount()
         setupFragmentResultListener()
         setupWelcomeMessage()
+        setupNetworkMonitoring()
     }
     
     
@@ -78,6 +91,31 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
+    private fun setupNotificationBadge() {
+        val toolbar = view?.findViewById<MaterialToolbar>(R.id.toolbar) ?: return
+        notificationsBadge = BadgeDrawable.create(requireContext()).apply {
+            isVisible = false
+            backgroundColor = requireContext().getColor(R.color.error)
+            badgeTextColor = requireContext().getColor(R.color.white)
+        }
+
+        // Observe unread notifications and update badge
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                notificationRepository.getUnreadNotifications().collect { unreadList ->
+                    val count = unreadList.size
+                    notificationsBadge?.number = count
+                    notificationsBadge?.isVisible = count > 0
+                    try {
+                        BadgeUtils.attachBadgeDrawable(notificationsBadge!!, toolbar, R.id.action_notifications)
+                    } catch (_: Exception) {
+                        // Ignore if attachment fails on older libs
+                    }
+                }
+            } catch (_: Exception) { }
+        }
+    }
     
     private fun setupRecyclerView() {
         val recyclerView = view?.findViewById<RecyclerView>(R.id.task_list)
@@ -93,20 +131,45 @@ class HomeFragment : Fragment() {
             onTaskToggle = { task, isCompleted ->
                 // Handle task completion toggle
                 isUpdatingTask = true
-                CoroutineScope(Dispatchers.IO).launch {
-                    val result = taskRepository.toggleTaskCompletion(task.id, isCompleted)
-                    withContext(Dispatchers.Main) {
-                        if (result.isSuccess) {
-                            val taskIndex = tasks.indexOfFirst { it.id == task.id }
-                            if (taskIndex != -1) {
-                                tasks[taskIndex] = task.copy(isCompleted = isCompleted)
-                                saveTasksLocally()
-                                refreshCurrentFilter() // This will update the adapter and count
-                                Toast.makeText(context, "Task ${if (isCompleted) "completed" else "marked pending"}", Toast.LENGTH_SHORT).show()
-                            }
-                        } else {
-                            Toast.makeText(context, "Failed to update task: ${result.exceptionOrNull()?.message}", Toast.LENGTH_SHORT).show()
+                val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+                    Log.e("HomeFragment", "Exception in task toggle", throwable)
+                }
+                viewLifecycleOwner.lifecycleScope.launch(exceptionHandler) {
+                    try {
+                        val result = withContext(Dispatchers.IO) {
+                            taskRepository.toggleTaskCompletion(task.id, isCompleted)
                         }
+                        withContext(Dispatchers.Main) {
+                            if (!isAdded || context == null || view == null) {
+                                Log.w("HomeFragment", "Fragment not attached, skipping UI update")
+                                return@withContext
+                            }
+                            
+                            if (result.isSuccess) {
+                                val taskIndex = tasks.indexOfFirst { it.id == task.id }
+                                if (taskIndex != -1) {
+                                    tasks[taskIndex] = task.copy(isCompleted = isCompleted)
+                                    taskAdapter.updateTasks(tasks)
+                                    updateTaskCount()
+                                    refreshCurrentFilter()
+                                    updateWelcomeMessage()
+                                    Toast.makeText(context, "Task ${if (isCompleted) "completed" else "marked pending"}", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    Log.w("HomeFragment", "Task not found in list: ${task.id}")
+                                }
+                            } else {
+                                Log.e("HomeFragment", "Failed to toggle task completion: ${result.exceptionOrNull()?.message}")
+                                Toast.makeText(context, "Failed to update task: ${result.exceptionOrNull()?.message}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } catch (e: Exception) {
+                        Log.e("HomeFragment", "Exception in task toggle", e)
+                        withContext(Dispatchers.Main) {
+                            if (isAdded && context != null) {
+                                Toast.makeText(context, "Error updating task: ${e.message}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } finally {
                         isUpdatingTask = false
                     }
                 }
@@ -153,9 +216,9 @@ class HomeFragment : Fragment() {
                 val chipId = checkedIds.first()
                 updateChipAppearance(chipId)
                 when (chipId) {
-                    R.id.chip_all -> showAllTasks()
-                    R.id.chip_pending -> showPendingTasks()
-                    R.id.chip_completed -> showCompletedTasks()
+                R.id.chip_all -> showAllTasks()
+                R.id.chip_pending -> showPendingTasks()
+                R.id.chip_completed -> showCompletedTasks()
                     R.id.chip_today -> showTodayTasks()
                 }
             }
@@ -270,7 +333,7 @@ class HomeFragment : Fragment() {
         } else {
             hideEmptyState()
             taskAdapter.updateTasks(tasks)
-            updateTaskCount()
+        updateTaskCount()
         }
     }
     
@@ -280,20 +343,23 @@ class HomeFragment : Fragment() {
             showEmptyState("No pending tasks", "All your tasks are completed! Great job!")
         } else {
             hideEmptyState()
-            taskAdapter.updateTasks(pendingTasks)
-            updateTaskCount(pendingTasks.size)
+        taskAdapter.updateTasks(pendingTasks)
+        updateTaskCount(pendingTasks.size)
         }
     }
     
     private fun showCompletedTasks() {
         val completedTasks = tasks.filter { it.isCompleted }
         if (completedTasks.isEmpty()) {
-            showEmptyState("No completed tasks", "Complete some tasks to see them here")
+            showEmptyState(
+                getString(R.string.no_completed_tasks),
+                getString(R.string.complete_some_tasks)
+            )
         } else {
             hideEmptyState()
-            taskAdapter.updateTasks(completedTasks)
-            updateTaskCount(completedTasks.size)
-        }
+        taskAdapter.updateTasks(completedTasks)
+        updateTaskCount(completedTasks.size)
+    }
     }
     
     private fun showTodayTasks() {
@@ -336,7 +402,11 @@ class HomeFragment : Fragment() {
     }
     
     private fun updateTaskCount(count: Int = tasks.size) {
-        view?.findViewById<TextView>(R.id.task_count)?.text = "$count task${if (count != 1) "s" else ""}"
+        view?.findViewById<TextView>(R.id.task_count)?.text = getString(
+            R.string.n_tasks_count,
+            count,
+            if (count != 1) "s" else ""
+        )
     }
     
     private fun showEmptyState(title: String, subtitle: String) {
@@ -367,13 +437,17 @@ class HomeFragment : Fragment() {
     private fun updateWelcomeMessage() {
         val welcomeText = view?.findViewById<TextView>(R.id.welcome_text)
         val user = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser
-        val displayName = user?.displayName ?: "User"
-        welcomeText?.text = "Welcome back, $displayName!"
+        val displayName = user?.displayName ?: getString(R.string.user)
+        welcomeText?.text = getString(R.string.welcome_back_name, displayName)
         
         // Update today's task count in the welcome card
         val todayTasksCount = tasks.count { it.dueDate == "Today" }
         val todayTaskCountText = view?.findViewById<TextView>(R.id.today_task_count)
-        todayTaskCountText?.text = "You have $todayTasksCount task${if (todayTasksCount != 1) "s" else ""} for today"
+        todayTaskCountText?.text = getString(
+            R.string.you_have_n_tasks_today,
+            todayTasksCount,
+            if (todayTasksCount != 1) "s" else ""
+        )
     }
     
     private fun setupFragmentResultListener() {
@@ -419,40 +493,127 @@ class HomeFragment : Fragment() {
         }
         
         isLoadingTasks = true
-        CoroutineScope(Dispatchers.IO).launch {
+        val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            Log.e("HomeFragment", "Exception in loadTasks", throwable)
+            isLoadingTasks = false
+        }
+        viewLifecycleOwner.lifecycleScope.launch(exceptionHandler) {
             try {
-                val result = taskRepository.getTasks()
+                // First try to load from local database
+                val localResult = withContext(Dispatchers.IO) {
+                    taskRepository.getTasksSync()
+                }
+                
                 withContext(Dispatchers.Main) {
-                    if (result.isSuccess) {
-                        val loadedTasks = result.getOrNull() ?: emptyList()
-                        tasks.clear()
-                        tasks.addAll(loadedTasks)
-                        taskAdapter.updateTasks(tasks)
-                        updateTaskCount()
-                        // Refresh the current filter after loading
-                        refreshCurrentFilter()
-                    } else {
-                        // Only show offline message if there's a real network issue
-                        val exception = result.exceptionOrNull()
-                        if (exception?.message?.contains("network") == true || 
-                            exception?.message?.contains("timeout") == true) {
-                            loadTasksFromLocal()
-                            Toast.makeText(context, "Using offline data", Toast.LENGTH_SHORT).show()
-                        } else {
-                            // For other errors, try local first, then show error
-                            loadTasksFromLocal()
-                            if (tasks.isEmpty()) {
-                                Toast.makeText(context, "Failed to load tasks", Toast.LENGTH_SHORT).show()
+                    if (!isAdded || context == null || view == null) {
+                        isLoadingTasks = false
+                        return@withContext
+                    }
+                    
+                    if (localResult.isSuccess) {
+                        val loadedTasks = localResult.getOrNull() ?: emptyList()
+                        
+                        // If local database is empty but we're online, download from Firebase
+                        if (loadedTasks.isEmpty() && taskRepository.isOnline()) {
+                            viewLifecycleOwner.lifecycleScope.launch(exceptionHandler) {
+                                try {
+                                    val downloadResult = withContext(Dispatchers.IO) {
+                                        taskRepository.downloadTasksFromFirebase()
+                                    }
+                                    if (downloadResult.isSuccess) {
+                                        // Reload from local database after download
+                                        val reloadResult = withContext(Dispatchers.IO) {
+                                            taskRepository.getTasksSync()
+                                        }
+                                        withContext(Dispatchers.Main) {
+                                            if (!isAdded || context == null || view == null) {
+                                                isLoadingTasks = false
+                                                return@withContext
+                                            }
+                                            
+                                            if (reloadResult.isSuccess) {
+                                                val reloadedTasks = reloadResult.getOrNull() ?: emptyList()
+                                                tasks.clear()
+                                                tasks.addAll(reloadedTasks)
+                                                taskAdapter.updateTasks(tasks)
+                                                updateTaskCount()
+                                                refreshCurrentFilter()
+                                                updateWelcomeMessage()
+                                            }
+                                            isLoadingTasks = false
+                                        }
+                                    } else {
+                                        isLoadingTasks = false
+                                    }
+                                } catch (e: Exception) {
+                                    // Handle download error silently
+                                    Log.e("HomeFragment", "Error downloading tasks", e)
+                                    isLoadingTasks = false
+                                }
                             }
+                        } else {
+                            // Normal case: use local tasks
+                            tasks.clear()
+                            tasks.addAll(loadedTasks)
+                            taskAdapter.updateTasks(tasks)
+                            updateTaskCount()
+                            refreshCurrentFilter()
+                            updateWelcomeMessage()
+                            isLoadingTasks = false
+                        }
+                    } else {
+                        isLoadingTasks = false
+                    }
+                }
+                
+                // Then try to sync with Firebase if online (async, don't block)
+                if (taskRepository.isOnline()) {
+                    val syncExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+                        // Ignore cancellation exceptions
+                        if (throwable !is kotlinx.coroutines.CancellationException) {
+                            Log.e("HomeFragment", "Sync exception in handler", throwable)
+                        }
+                    }
+                    viewLifecycleOwner.lifecycleScope.launch(syncExceptionHandler) {
+                        try {
+                            // Check if fragment is still attached before starting sync
+                            if (!isAdded || context == null) {
+                                return@launch
+                            }
+                            
+                            // Only sync local changes to Firebase (upload)
+                            val syncResult = withContext(Dispatchers.IO) {
+                                taskRepository.syncOfflineChanges()
+                            }
+                            if (syncResult.isSuccess) {
+                                Log.d("HomeFragment", "Local changes synced to Firebase")
+                            } else {
+                                Log.e("HomeFragment", "Sync failed: ${syncResult.exceptionOrNull()?.message}")
+                            }
+                        } catch (e: kotlinx.coroutines.CancellationException) {
+                            // Cancellation is expected when fragment is destroyed - ignore it
+                        } catch (e: Exception) {
+                            // Sync failed, but we still have local data
+                            if (isAdded) {
+                                Log.e("HomeFragment", "Sync exception", e)
+                                withContext(Dispatchers.Main) {
+                                    if (isAdded && context != null) {
+                                        Toast.makeText(context, "Sync failed, showing offline data", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        if (isAdded && context != null) {
+                            Toast.makeText(context, "Offline mode - showing local data", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    loadTasksFromLocal()
-                    if (tasks.isEmpty()) {
-                        Toast.makeText(context, "Failed to load tasks: ${e.message}", Toast.LENGTH_SHORT).show()
-                    }
+                    Toast.makeText(context, "Error loading tasks: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             } finally {
                 isLoadingTasks = false
@@ -490,6 +651,99 @@ class HomeFragment : Fragment() {
         val gson = com.google.gson.Gson()
         val tasksJson = gson.toJson(tasks)
         sharedPreferences.edit().putString("tasks_list", tasksJson).apply()
+    }
+    
+    /**
+     * Setup network monitoring to show offline/online status
+     */
+    private fun setupNetworkMonitoring() {
+        val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            // Ignore cancellation exceptions - they're expected when fragment is destroyed
+            if (throwable !is kotlinx.coroutines.CancellationException) {
+                Log.e("HomeFragment", "Exception in network state monitoring", throwable)
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch(exceptionHandler) {
+            try {
+                taskRepository.getNetworkState().collect { isOnline ->
+                    withContext(Dispatchers.Main) {
+                        // Only update if fragment is still attached
+                        if (isAdded && view != null && context != null) {
+                            updateNetworkStatus(isOnline)
+                        }
+                    }
+                }
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                // Cancellation is expected when fragment is destroyed - ignore it
+            } catch (e: Exception) {
+                if (isAdded) {
+                    Log.e("HomeFragment", "Error collecting network state", e)
+                }
+            }
+        }
+    }
+    
+    /**
+     * Update UI based on network status
+     */
+    private fun updateNetworkStatus(isOnline: Boolean) {
+        // Check if fragment is still attached
+        if (!isAdded || context == null) {
+            Log.w("HomeFragment", "Fragment not attached, skipping network status update")
+            return
+        }
+        
+        // Update offline indicator visibility
+        val offlineIndicator = view?.findViewById<com.google.android.material.card.MaterialCardView>(R.id.offline_indicator)
+        offlineIndicator?.visibility = if (isOnline) View.GONE else View.VISIBLE
+        
+        if (isOnline) {
+            // Try to sync when coming back online
+            val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+                // Ignore cancellation exceptions - they're expected when fragment is destroyed
+                if (throwable !is kotlinx.coroutines.CancellationException) {
+                    Log.e("HomeFragment", "Exception in sync", throwable)
+                }
+            }
+            viewLifecycleOwner.lifecycleScope.launch(exceptionHandler) {
+                try {
+                    // Check if fragment is still attached before starting sync
+                    if (!isAdded || context == null) {
+                        return@launch
+                    }
+                    
+                    // Only sync local changes to Firebase (upload)
+                    val syncResult = withContext(Dispatchers.IO) {
+                        taskRepository.syncOfflineChanges()
+                    }
+                    withContext(Dispatchers.Main) {
+                        if (!isAdded || context == null || view == null) return@withContext
+                        
+                        if (syncResult.isSuccess) {
+                            Toast.makeText(context, "Back online - syncing changes", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, "Sync failed: ${syncResult.exceptionOrNull()?.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } catch (e: kotlinx.coroutines.CancellationException) {
+                    // Cancellation is expected when fragment is destroyed - ignore it silently
+                } catch (e: Exception) {
+                    // Only log if fragment is still attached and it's not a cancellation
+                    if (isAdded && e !is kotlinx.coroutines.CancellationException) {
+                        Log.e("HomeFragment", "Network sync exception", e)
+                        withContext(Dispatchers.Main) {
+                            if (isAdded && context != null) {
+                                Toast.makeText(context, "Sync failed: ${e.message}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            if (isAdded && context != null) {
+                Toast.makeText(context, "Offline mode", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
 

@@ -18,7 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            app:title="Task Details"
+            app:title="@string/task_details"
             app:titleTextColor="?android:attr/textColorPrimary"
             app:titleTextAppearance="@style/TextAppearance.Material3.HeadlineSmall"
             app:navigationIcon="@drawable/ic_back"
@@ -76,7 +76,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@drawable/ic_status"
-                            android:contentDescription="Status"
+                            android:contentDescription="@string/status"
                             android:alpha="0.8" />
 
                         <TextView
@@ -127,7 +127,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Task Information"
+                        android:text="@string/task_information"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="?android:attr/textColorPrimary"
@@ -145,13 +145,13 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_calendar"
-                            android:contentDescription="Calendar"
+                            android:contentDescription="@string/calendar"
                             android:alpha="0.6" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Due Date"
+                            android:text="@string/due_date"
                             android:textSize="16sp"
                             android:textColor="?android:attr/textColorPrimary"
                             android:layout_marginStart="16dp" />
@@ -184,13 +184,13 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_created"
-                            android:contentDescription="Created"
+                            android:contentDescription="@string/created"
                             android:alpha="0.6" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Created"
+                            android:text="@string/created"
                             android:textSize="16sp"
                             android:textColor="?android:attr/textColorPrimary"
                             android:layout_marginStart="16dp" />
@@ -222,13 +222,13 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_category"
-                            android:contentDescription="Category"
+                            android:contentDescription="@string/category"
                             android:alpha="0.6" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Category"
+                            android:text="@string/category"
                             android:textSize="16sp"
                             android:textColor="?android:attr/textColorPrimary"
                             android:layout_marginStart="16dp" />
@@ -271,7 +271,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Description"
+                        android:text="@string/description"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="?android:attr/textColorPrimary"
@@ -306,7 +306,7 @@
                     android:layout_height="56dp"
                     android:layout_weight="1"
                     android:layout_marginEnd="8dp"
-                    android:text="Mark Pending"
+                    android:text="@string/mark_pending"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:cornerRadius="16dp"
@@ -322,7 +322,7 @@
                     android:layout_height="56dp"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
-                    android:text="Mark Complete"
+                    android:text="@string/mark_complete"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:cornerRadius="16dp"
@@ -340,7 +340,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="16dp"
-                android:text="Edit Task"
+                android:text="@string/edit_task"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:cornerRadius="16dp"
@@ -356,7 +356,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="16dp"
-                android:text="Delete Task"
+                android:text="@string/delete_task"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:cornerRadius="16dp"

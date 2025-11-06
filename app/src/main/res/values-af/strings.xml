@@ -1,46 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TaakMeester</string>
-    <string name="welcome_text">Welkom Terug!</string>
-    <string name="subtitle">Meld aan om voort te gaan met die bestuur van jou take</string>
-    <string name="email_hint">E-pos Adres</string>
+    <string name="app_name">TaskMaster</string>
+    <string name="welcome_text">Welkom terug!</string>
+    <string name="subtitle">Meld aan om jou take te bestuur</string>
+    <string name="email_hint">E-posadres</string>
     <string name="password_hint">Wagwoord</string>
-    <string name="sign_in">Teken In</string>
-    <string name="sign_up">Teken Op</string>
-    <string name="forgot_password">Wagwoord Vergeet?</string>
+    <string name="sign_in">Meld aan</string>
+    <string name="sign_up">Registreer</string>
+    <string name="forgot_password">Wagwoord vergeet?</string>
+    <string name="forgot_password_title">Herstel wagwoord</string>
+    <string name="forgot_password_subtitle">Voer jou e-posadres in en ons stuur vir jou \'n skakel om jou wagwoord te herstel</string>
+    <string name="send_reset_email">Stuur herstel e-pos</string>
+    <string name="reset_email_sent_title">Kyk jou e-pos</string>
+    <string name="reset_email_sent_description">Ons het \'n wagwoord herstel skakel na jou e-posadres gestuur. Gaan asseblief jou posbus na en volg die instruksies om jou wagwoord te herstel.</string>
+    <string name="remember_password">Onthou jy jou wagwoord? </string>
+    <string name="invalid_email_format">Voer asseblief \'n geldige e-posadres in</string>
+    <string name="failed_to_send_reset_email">Kon nie herstel e-pos stuur nie. Probeer asseblief weer.</string>
+    <string name="too_many_requests">Te veel versoeke. Wag asseblief \'n paar minute voordat jy weer probeer.</string>
+    <string name="network_error">Netwerk fout. Gaan asseblief jou internet verbinding na en probeer weer.</string>
     <string name="dont_have_account">Het jy nie \'n rekening nie? </string>
     <string name="have_account">Het jy reeds \'n rekening? </string>
-    <string name="login">Teken In</string>
+    <string name="login">Meld aan</string>
     <string name="register">Registreer</string>
     <string name="home">Tuis</string>
     <string name="settings">Instellings</string>
     <string name="notifications">Kennisgewings</string>
     <string name="tasks">Take</string>
-    <string name="add_task">Voeg Taak By</string>
-    <string name="edit_task">Wysig Taak</string>
-    <string name="delete_task">Skrap Taak</string>
-    <string name="mark_complete">Merk Voltooi</string>
-    <string name="mark_pending">Merk Hangend</string>
-    <string name="all_tasks">Alle Take</string>
-    <string name="pending_tasks">Hangende Take</string>
-    <string name="completed_tasks">Voltooide Take</string>
+    <string name="add_task">Voeg taak by</string>
+    <string name="edit_task">Wysig taak</string>
+    <string name="delete_task">Verwyder taak</string>
+    <string name="mark_complete">Merk volledig</string>
+    <string name="mark_pending">Merk hangend</string>
+    <string name="all_tasks">Alle take</string>
+    <string name="pending_tasks">Hangende take</string>
+    <string name="completed_tasks">Voltooide take</string>
     <string name="language">Taal</string>
     <string name="theme">Tema</string>
-    <string name="dark_theme">Donker Tema</string>
-    <string name="light_theme">Lig Tema</string>
+    <string name="dark_theme">Donker tema</string>
+    <string name="light_theme">Lig tema</string>
     <string name="notifications_enabled">Aktiveer kennisgewings</string>
-    <string name="privacy_policy">Privaatheid Beleid</string>
+    <string name="privacy_policy">Privaatheidsbeleid</string>
     <string name="terms_of_service">Diensbepalings</string>
-    <string name="logout">Teken Uit</string>
-    <string name="edit_profile">Wysig Profiel</string>
-    <string name="app_information">App Inligting</string>
+    <string name="logout">Teken uit</string>
+    <string name="edit_profile">Wysig profiel</string>
+    <string name="app_information">Programinligting</string>
     <string name="version">Weergawe</string>
     <string name="build">Bou</string>
-    <string name="app_name_label">App Naam</string>
-    
-    <!-- Existing task-related strings -->
-    <string name="task_details">Taak Besonderhede</string>
-    <string name="task_title">Taak titel</string>
+    <string name="app_name_label">Programnaam</string>
+    <string name="preferences">Voorkeure</string>
+    <string name="task_reminders_one_day">Taakherinneringe (1 dag voor)</string>
+    <string name="my_tasks">My take</string>
+    <string name="offline_mode_message">Vanlyn modus - Veranderinge sinkroniseer wanneer aanlyn</string>
+    <string name="all">Alle</string>
+    <string name="pending">Hangend</string>
+    <string name="completed">Voltooid</string>
+    <string name="welcome_back">Welkom terug!</string>
+    <string name="welcome_back_name">Welkom terug, %1$s!</string>
+    <string name="today_task_count_zero">Jy het 0 take vir vandag</string>
+    <string name="no_tasks_yet">Nog geen take nie</string>
+    <string name="tap_plus_to_create">Tik die + knoppie om jou eerste taak te skep</string>
+    <string name="mark_all_read">Merk almal as gelees</string>
+    <string name="you_have_n_notifications">Jy het %1$d kennisgewing%2$s</string>
+    <string name="n_unread_messages">%1$d ongeleesde boodskap%2$s</string>
+    <string name="unread">Ongelees</string>
+    <string name="important">Belangrik</string>
+    <string name="no_notifications_yet">Nog geen kennisgewings nie</string>
+    <string name="tap_to_refresh_notifications">Tik om kennisgewings te verfris</string>
+    <string name="task_details">Taakbesonderhede</string>
+    <string name="english">Engels</string>
+    <string name="afrikaans">Afrikaans</string>
+    <string name="zulu">IsiZulu</string>
+    <string name="task_title">Taaktitel</string>
     <string name="description">Beskrywing</string>
     <string name="priority">Prioriteit</string>
     <string name="low">Laag</string>
@@ -59,10 +88,10 @@
     <string name="remind_me">Herinner my</string>
     <string name="_15_min_before">15 min voor</string>
     <string name="cancel">Kanselleer</string>
-    <string name="save_task">Stoor Taak</string>
-    
+    <string name="save_task">Stoor taak</string>
+
     <!-- Change Password -->
-    <string name="change_password">Verander Wagwoord</string>
+    <string name="change_password">Verander wagwoord</string>
     <string name="current_password">Huidige wagwoord</string>
     <string name="new_password">Nuwe wagwoord</string>
     <string name="confirm_password">Bevestig nuwe wagwoord</string>
@@ -73,13 +102,8 @@
     <string name="passwords_dont_match">Wagwoorde stem nie ooreen nie</string>
     <string name="fill_all_fields">Vul asseblief alle velde in</string>
     <string name="user_not_authenticated">Gebruiker nie geverifieer nie</string>
-    <string name="changing">Verander...</string>
-    
-    <!-- Language Options -->
-    <string name="english">English</string>
-    <string name="afrikaans">Afrikaans</string>
-    <string name="zulu">IsiZulu</string>
-    
+    <string name="changing">Verander…</string>
+
     <!-- Profile -->
     <string name="profile">Profiel</string>
     <string name="username">Gebruikersnaam</string>
@@ -87,23 +111,129 @@
     <string name="save">Stoor</string>
     <string name="edit">Wysig</string>
     <string name="user">Gebruiker</string>
-    
+
     <!-- Account -->
     <string name="account">Rekening</string>
     <string name="change_password_option">Verander wagwoord</string>
-    
+
     <!-- General -->
     <string name="ok">OK</string>
     <string name="yes">Ja</string>
     <string name="no">Nee</string>
-    <string name="loading">Laai...</string>
+    <string name="loading">Laai…</string>
     <string name="error">Fout</string>
     <string name="success">Sukses</string>
-    <string name="changing_language">Verander taal...</string>
+    <string name="changing_language">Verander taal…</string>
     <string name="language_changed">Taal suksesvol verander</string>
-    
+
     <!-- Register -->
-    <string name="create_account">Skep Rekening</string>
+    <string name="create_account">Skep rekening</string>
     <string name="join_taskmaster">Sluit by TaskMaster aan en begin om jou lewe te organiseer</string>
 
+    <!-- Google Sign-In -->
+    <string name="default_web_client_id">445877414792-nn3c333385njo3jtp34k3ea1ua0e88pu.apps.googleusercontent.com</string>
+    <string name="continue_with_google">Gaan voort met Google</string>
+
+    <!-- Additional UI Strings -->
+    <string name="add_new_task">Voeg nuwe taak by</string>
+    <string name="or">OF</string>
+    <string name="confirm_password_hint">Bevestig wagwoord</string>
+    <string name="terms_agreement">Ek stem saam met die Diensbepalings en Privaatheidsbeleid</string>
+    <string name="tap_to_change_photo">Tik om foto te verander</string>
+    <string name="profile_information">Profielinligting</string>
+    <string name="email_cannot_be_changed">E-pos kan nie verander word nie</string>
+    <string name="save_changes">Stoor veranderinge</string>
+    <string name="task_information">Taakinligting</string>
+    <string name="created">Geskepe</string>
+    <string name="category">Kategorie</string>
+    <string name="n_tasks">%1$d take</string>
+    <string name="welcome_to_taskmaster">Welkom by TaskMaster</string>
+    <string name="onboarding_description">Jou persoonlike produktiwiteitsmaat wat jou help om georganiseerd te bly en gefokus te bly op wat die belangrikste is.</string>
+    <string name="work_anywhere_anytime">Werk enige plek, enige tyd</string>
+    <string name="work_anywhere_anytime_desc">Jou take sinkroniseer outomaties wanneer jy aanlyn is. Werk vanlyn en sinkroniseer wanneer jy weer aanlyn is.</string>
+    <string name="skip">Slaan oor</string>
+    <string name="next">Volgende</string>
+    <string name="get_started">Begin</string>
+    <string name="organize_your_life">Organiseer jou lewe, een taak op \'n slag</string>
+    <string name="getting_things_ready">Maak dinge gereed…</string>
+    <string name="task_due_soon">Taak binnekort</string>
+    <string name="task_due_soon_message">Jou taak \'%1$s\' is oor %2$s</string>
+    <!-- Notification Titles/Messages (dynamic) -->
+    <string name="task_due_today_title">Taak vandag verskuldig</string>
+    <string name="task_due_today_message">\'%1$s\' is vandag verskuldig</string>
+    <string name="task_completed_title">Taak voltooi</string>
+    <string name="task_completed_message">\'%1$s\' is voltooi</string>
+    <string name="task_created_title">Nuwe taak geskep</string>
+    <string name="task_created_message">Taak \'%1$s\' is by jou lys gevoeg</string>
+    <string name="task_overdue_title">Taak agterstallig</string>
+    <string name="task_overdue_message">Taak \'%1$s\' is agterstallig! Voltooi dit asseblief binnekort.</string>
+    <string name="high_priority_task_title">Hoë-prioriteit taak</string>
+    <string name="high_priority_task_message">\'%1$s\' is \'n hoë-prioriteit taak</string>
+    <string name="status">Status</string>
+    <string name="profile_picture">Profielfoto</string>
+    <string name="no_tasks">Geen take nie</string>
+
+    <!-- Dynamic Text Strings -->
+    <string name="you_have_n_tasks_today">Jy het %1$d taak%2$s vir vandag</string>
+    <string name="no_completed_tasks">Geen voltooide take nie</string>
+    <string name="complete_some_tasks">Voltooi sommige take om hulle hier te sien</string>
+    <string name="mark_incomplete">Merk onvolledig</string>
+    <string name="you_have_n_notifications_count">Jy het %1$d kennisgewing%2$s</string>
+    <string name="n_unread_messages_count">%1$d ongeleesde boodskap%2$s</string>
+    
+    <!-- Share Menu -->
+    <string name="share">Deel</string>
+    <string name="more">Meer</string>
+    <string name="duplicate_task">Dupliseer taak</string>
+    <string name="export_task">Voer taak uit</string>
+    <string name="add_to_calendar">Voeg by kalender</string>
+    <string name="share_task">Deel taak</string>
+    
+    <!-- Share Content -->
+    <string name="share_task_title">Taak: %1$s</string>
+    <string name="share_task_description">Beskrywing: %1$s</string>
+    <string name="share_task_priority">Prioriteit: %1$s</string>
+    <string name="share_task_due_date">Vervaldatum: %1$s om %2$s</string>
+    <string name="share_task_status">Status: %1$s</string>
+    <string name="status_completed">Voltooid</string>
+    <string name="status_in_progress">In uitvoering</string>
+    
+    <!-- Date Formatting -->
+    <string name="yesterday">Gister</string>
+    <string name="tomorrow">Môre</string>
+    <string name="n_days_ago">%1$d dae gelede</string>
+    
+    <!-- Time Formatting -->
+    <string name="just_now">Net nou</string>
+    <string name="n_minutes_ago">%1$dm gelede</string>
+    <string name="n_hours_ago">%1$du gelede</string>
+
+    <!-- Task Count -->
+    <string name="n_tasks_count">%1$d taak%2$s</string>
+    
+    <!-- Dialog Confirmations -->
+    <string name="delete_task_title">Verwyder taak</string>
+    <string name="delete_task_message">Is jy seker jy wil hierdie taak verwyder? Hierdie aksie kan nie ongedaan gemaak word nie.</string>
+    <string name="delete">Verwyder</string>
+    <string name="clear_all_notifications_title">Verwyder alle kennisgewings</string>
+    <string name="clear_all_notifications_message">Is jy seker jy wil alle kennisgewings verwyder? Hierdie aksie kan nie ongedaan gemaak word nie.</string>
+    <string name="clear_all">Verwyder alles</string>
+    
+    <!-- Reminder Time Options -->
+    <string name="reminder_time_title">Herinneringstyd</string>
+    <string name="reminder_5_min_before">5 minute voor</string>
+    <string name="reminder_15_min_before">15 minute voor</string>
+    <string name="reminder_30_min_before">30 minute voor</string>
+    <string name="reminder_1_hour_before">1 uur voor</string>
+    <string name="reminder_2_hours_before">2 ure voor</string>
+    
+    <!-- Update Task -->
+    <string name="update_task">Wysig taak</string>
+    
+    <!-- Task Validation/Error Messages -->
+    <string name="title_required">Titel word vereis</string>
+    <string name="failed_to_save_task">Kon nie taak stoor nie: %1$s</string>
+    <string name="failed_to_update_task">Kon nie taak wysig nie: %1$s</string>
+    <string name="error_saving_task">Fout met stoor taak: %1$s</string>
+    <string name="unknown_error">Onbekende fout</string>
 </resources>

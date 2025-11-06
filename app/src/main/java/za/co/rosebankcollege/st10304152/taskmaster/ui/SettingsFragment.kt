@@ -2,6 +2,9 @@ package za.co.rosebankcollege.st10304152.taskmaster.ui
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.res.Configuration
@@ -223,16 +226,6 @@ class SettingsFragment : Fragment() {
     }
     
     private fun setupSwitches() {
-        // Notifications switch
-        val notificationsSwitch = view?.findViewById<MaterialSwitch>(R.id.notifications_switch)
-        val notificationsEnabled = sharedPreferences.getBoolean("notifications_enabled", true)
-        notificationsSwitch?.isChecked = notificationsEnabled
-        
-        notificationsSwitch?.setOnCheckedChangeListener { _, isChecked ->
-            sharedPreferences.edit().putBoolean("notifications_enabled", isChecked).apply()
-            Toast.makeText(context, if (isChecked) "Notifications enabled" else "Notifications disabled", Toast.LENGTH_SHORT).show()
-        }
-        
         // Theme switch
         val themeSwitch = view?.findViewById<MaterialSwitch>(R.id.theme_switch)
         val isDarkTheme = sharedPreferences.getBoolean("dark_theme", false)
@@ -246,6 +239,53 @@ class SettingsFragment : Fragment() {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
             Toast.makeText(context, if (isChecked) "Dark theme enabled" else "Light theme enabled", Toast.LENGTH_SHORT).show()
+        }
+
+        // Notification switches (persisted where NotificationGenerator reads from)
+        val notifPrefs = requireContext().getSharedPreferences("taskmaster_prefs", Context.MODE_PRIVATE)
+
+        val notificationsSwitch = view?.findViewById<MaterialSwitch>(R.id.notification_switch)
+        val remindersSwitch = view?.findViewById<MaterialSwitch>(R.id.reminder_switch)
+
+        val notificationsEnabled = notifPrefs.getBoolean("notifications_enabled", true)
+        val remindersEnabled = notifPrefs.getBoolean("reminders_enabled", true)
+
+        notificationsSwitch?.isChecked = notificationsEnabled
+        remindersSwitch?.isChecked = remindersEnabled
+
+        notificationsSwitch?.setOnCheckedChangeListener { _, isChecked ->
+            notifPrefs.edit().putBoolean("notifications_enabled", isChecked).apply()
+            if (isChecked) {
+                // For Android 13+, if notifications are blocked, guide user to enable
+                val context = requireContext()
+                val areEnabled = androidx.core.app.NotificationManagerCompat.from(context).areNotificationsEnabled()
+                if (!areEnabled) {
+                    try {
+                        val intent = Intent().apply {
+                            action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
+                            putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+                            data = Uri.parse("package:" + context.packageName)
+                        }
+                        startActivity(intent)
+                        Toast.makeText(context, "Enable notifications for TaskMaster", Toast.LENGTH_SHORT).show()
+                    } catch (_: Exception) {
+                        // Fallback: open app details settings
+                        val fallback = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                            data = Uri.parse("package:" + context.packageName)
+                        }
+                        startActivity(fallback)
+                    }
+                } else {
+                    Toast.makeText(context, "Notifications enabled", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(context, "Notifications disabled", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        remindersSwitch?.setOnCheckedChangeListener { _, isChecked ->
+            notifPrefs.edit().putBoolean("reminders_enabled", isChecked).apply()
+            Toast.makeText(context, if (isChecked) "Task reminders enabled" else "Task reminders disabled", Toast.LENGTH_SHORT).show()
         }
     }
     

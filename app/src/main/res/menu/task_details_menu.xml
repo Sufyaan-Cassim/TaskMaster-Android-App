@@ -5,13 +5,27 @@
     <item
         android:id="@+id/action_share"
         android:icon="@drawable/ic_share"
-        android:title="Share"
+        android:title="@string/share"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_more"
         android:icon="@drawable/ic_more_vert"
-        android:title="More"
-        app:showAsAction="ifRoom" />
+        android:title="@string/more"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/action_duplicate"
+                android:title="@string/duplicate_task" />
+            
+            <item
+                android:id="@+id/action_export"
+                android:title="@string/export_task" />
+            
+            <item
+                android:id="@+id/action_add_to_calendar"
+                android:title="@string/add_to_calendar" />
+        </menu>
+    </item>
 
 </menu>

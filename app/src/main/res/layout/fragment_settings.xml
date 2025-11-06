@@ -18,7 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            app:title="Settings"
+            app:title="@string/settings"
             app:titleTextColor="?attr/colorPrimary"
             app:titleTextAppearance="@style/TextAppearance.Material3.HeadlineSmall"
             app:navigationIcon="@drawable/ic_back"
@@ -98,7 +98,7 @@
                             android:id="@+id/edit_profile_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Edit"
+                            android:text="@string/edit"
                             android:textSize="12sp"
                             app:cornerRadius="20dp"
                             style="@style/Widget.Material3.Button.OutlinedButton" />
@@ -127,7 +127,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Preferences"
+                        android:text="@string/preferences"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/on_background"
@@ -172,7 +172,7 @@
 
                             <AutoCompleteTextView
                                 android:id="@+id/language_spinner"
-                                android:layout_width="120dp"
+                                android:layout_width="180dp"
                                 android:layout_height="48dp"
                                 android:inputType="none"
                                 android:text="@string/english"
@@ -180,41 +180,12 @@
                                 android:textColor="?android:attr/textColorPrimary"
                                 android:padding="8dp"
                                 android:gravity="center"
+                                android:singleLine="true"
+                                android:maxLines="1"
+                                android:ellipsize="end"
                                 android:minHeight="48dp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
-
-                    </LinearLayout>
-
-                    <!-- Notifications Setting -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="16dp">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_notifications"
-                            android:contentDescription="Notifications"
-                            android:alpha="0.6" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/notifications_enabled"
-                            android:textSize="16sp"
-                            android:textColor="?android:attr/textColorPrimary"
-                            android:layout_marginStart="16dp" />
-
-                        <com.google.android.material.materialswitch.MaterialSwitch
-                            android:id="@+id/notifications_switch"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="true" />
 
                     </LinearLayout>
 
@@ -248,6 +219,68 @@
 
                     </LinearLayout>
 
+                    <!-- Notification Setting -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_notifications"
+                            android:contentDescription="Notifications"
+                            android:alpha="0.6" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/notifications_enabled"
+                            android:textSize="16sp"
+                            android:textColor="?android:attr/textColorPrimary"
+                            android:layout_marginStart="16dp" />
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/notification_switch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <!-- Notification Reminder Setting -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_calendar"
+                            android:contentDescription="Reminders"
+                            android:alpha="0.6" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/task_reminders_one_day"
+                            android:textSize="16sp"
+                            android:textColor="?android:attr/textColorPrimary"
+                            android:layout_marginStart="16dp" />
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/reminder_switch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -270,7 +303,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Account"
+                        android:text="@string/account"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/on_background"
@@ -302,7 +335,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Change password"
+                            android:text="@string/change_password_option"
                             android:textSize="16sp"
                             android:textColor="@color/on_background"
                             android:layout_marginStart="16dp" />
@@ -341,7 +374,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Privacy policy"
+                            android:text="@string/privacy_policy"
                             android:textSize="16sp"
                             android:textColor="@color/on_background"
                             android:layout_marginStart="16dp" />
@@ -379,7 +412,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Terms of service"
+                            android:text="@string/terms_of_service"
                             android:textSize="16sp"
                             android:textColor="@color/on_background"
                             android:layout_marginStart="16dp" />
@@ -415,7 +448,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="App Information"
+                        android:text="@string/app_information"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/on_background"
@@ -440,7 +473,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Version"
+                            android:text="@string/version"
                             android:textSize="16sp"
                             android:textColor="@color/on_background"
                             android:layout_marginStart="16dp" />
@@ -475,7 +508,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Build"
+                            android:text="@string/build"
                             android:textSize="16sp"
                             android:textColor="@color/on_background"
                             android:layout_marginStart="16dp" />
@@ -509,7 +542,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="App Name"
+                            android:text="@string/app_name_label"
                             android:textSize="16sp"
                             android:textColor="@color/on_background"
                             android:layout_marginStart="16dp" />
@@ -534,7 +567,7 @@
                 android:id="@+id/logout_button"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Log out"
+                android:text="@string/logout"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:cornerRadius="16dp"
