@@ -76,15 +76,25 @@ A beautiful, feature-rich Android task management application built with Kotlin,
 
 ## 📱 Screenshots
 
-### Light Mode
-| Home Screen                               | Task Details                                             | Settings                                          |
-|-------------------------------------------|----------------------------------------------------------|---------------------------------------------------|
-| ![Light Home](screenshots/light_home.jpg) | ![Light Task Details](screenshots/light_task_details.jpg) | ![Light Settings](screenshots/light_settings.jpg) |
+### Authentication & Onboarding
+| Login Screen | Registration Screen | Forgot Password |
+|--------------|---------------------|-----------------|
+| ![Login](submission_screenshots/app_screenshots/01_login_screen.jpg) | ![Registration](submission_screenshots/app_screenshots/02_registration_screen.jpg) | ![Forgot Password](submission_screenshots/app_screenshots/10_forgot_password.jpg) |
 
-### Dark Mode
-| Home Screen                             | Task Details                                            | Settings                                       |
-|-----------------------------------------|---------------------------------------------------------|------------------------------------------------|
-| ![Dark Home](screenshots/dark_home.jpg) | ![Dark Task Details](screenshots/dark_task_details.jpg) | ![Dark Settings](screenshots/dark_settings.jpg) |
+### Task Management
+| Home Screen (English) | Task Details | Add/Edit Task |
+|----------------------|--------------|---------------|
+| ![Home](submission_screenshots/app_screenshots/03_home_english.jpg) | ![Task Details](submission_screenshots/app_screenshots/7_task_details.jpg) | ![Edit Task](submission_screenshots/app_screenshots/08_edit_task_screen.jpg) |
+
+### Multi-Language Support
+| Home Screen (Afrikaans) | Home Screen (isiZulu) | Settings |
+|-------------------------|------------------------|----------|
+| ![Afrikaans](submission_screenshots/app_screenshots/05_home_afrikaans.jpg) | ![isiZulu](submission_screenshots/app_screenshots/06_home_zulu.jpg) | ![Settings](submission_screenshots/app_screenshots/04_settings_screen.jpg) |
+
+### Notifications & Dark Mode
+| Notifications Screen | Dark Mode Settings |
+|---------------------|-------------------|
+| ![Notifications](submission_screenshots/app_screenshots/09_notifications_screen.jpg) | ![Dark Mode](submission_screenshots/app_screenshots/11_dark_mode_settings.jpg) |
 
 ## 🚀 Getting Started
 
