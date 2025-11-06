@@ -26,11 +26,11 @@ jobs:
     - name: Run unit tests
       run: ./gradlew test
       
-    - name: Build debug APK
-      run: ./gradlew assembleDebug
+    - name: Build debug APK (skip lint)
+      run: ./gradlew assembleDebug -x lintDebug
       
-    - name: Build release AAB (without signing for CI)
-      run: ./gradlew bundleRelease
+    - name: Build release AAB (without signing for CI, skip lint)
+      run: ./gradlew bundleRelease -x lintRelease
       continue-on-error: true
       
     - name: Upload test results

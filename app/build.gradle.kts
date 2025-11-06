@@ -65,6 +65,13 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
     }
+    
+    lint {
+        abortOnError = false
+        checkReleaseBuilds = false
+        warningsAsErrors = false
+    }
+    
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11

@@ -82,6 +82,10 @@ class PushNotificationManager(private val context: Context) {
      * Show notification for task created
      */
     fun showTaskCreatedNotification(taskTitle: String, taskId: String) {
+        if (!notificationManager.areNotificationsEnabled()) {
+            return
+        }
+        
         val intent = Intent(context, MainActivity::class.java).apply {
             putExtra("navigate_to_task", taskId)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -103,13 +107,21 @@ class PushNotificationManager(private val context: Context) {
             .setAutoCancel(true)
             .build()
         
-        notificationManager.notify(NOTIFICATION_ID_TASK_CREATED, notification)
+        try {
+            notificationManager.notify(NOTIFICATION_ID_TASK_CREATED, notification)
+        } catch (e: SecurityException) {
+            // Permission denied, ignore
+        }
     }
     
     /**
      * Show notification for task completed
      */
     fun showTaskCompletedNotification(taskTitle: String, taskId: String) {
+        if (!notificationManager.areNotificationsEnabled()) {
+            return
+        }
+        
         val intent = Intent(context, MainActivity::class.java).apply {
             putExtra("navigate_to_task", taskId)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -131,13 +143,21 @@ class PushNotificationManager(private val context: Context) {
             .setAutoCancel(true)
             .build()
         
-        notificationManager.notify(NOTIFICATION_ID_TASK_COMPLETED, notification)
+        try {
+            notificationManager.notify(NOTIFICATION_ID_TASK_COMPLETED, notification)
+        } catch (e: SecurityException) {
+            // Permission denied, ignore
+        }
     }
     
     /**
      * Show notification for task due soon
      */
     fun showTaskDueSoonNotification(taskTitle: String, taskId: String, dueDate: String) {
+        if (!notificationManager.areNotificationsEnabled()) {
+            return
+        }
+        
         val intent = Intent(context, MainActivity::class.java).apply {
             putExtra("navigate_to_task", taskId)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -159,13 +179,21 @@ class PushNotificationManager(private val context: Context) {
             .setAutoCancel(true)
             .build()
         
-        notificationManager.notify(NOTIFICATION_ID_TASK_DUE, notification)
+        try {
+            notificationManager.notify(NOTIFICATION_ID_TASK_DUE, notification)
+        } catch (e: SecurityException) {
+            // Permission denied, ignore
+        }
     }
     
     /**
      * Show notification for task overdue
      */
     fun showTaskOverdueNotification(taskTitle: String, taskId: String) {
+        if (!notificationManager.areNotificationsEnabled()) {
+            return
+        }
+        
         val intent = Intent(context, MainActivity::class.java).apply {
             putExtra("navigate_to_task", taskId)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -187,13 +215,21 @@ class PushNotificationManager(private val context: Context) {
             .setAutoCancel(true)
             .build()
         
-        notificationManager.notify(NOTIFICATION_ID_TASK_OVERDUE, notification)
+        try {
+            notificationManager.notify(NOTIFICATION_ID_TASK_OVERDUE, notification)
+        } catch (e: SecurityException) {
+            // Permission denied, ignore
+        }
     }
     
     /**
      * Show custom reminder notification
      */
     fun showReminderNotification(taskTitle: String, taskId: String, message: String) {
+        if (!notificationManager.areNotificationsEnabled()) {
+            return
+        }
+        
         val intent = Intent(context, MainActivity::class.java).apply {
             putExtra("navigate_to_task", taskId)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -215,7 +251,11 @@ class PushNotificationManager(private val context: Context) {
             .setAutoCancel(true)
             .build()
         
-        notificationManager.notify(NOTIFICATION_ID_REMINDER, notification)
+        try {
+            notificationManager.notify(NOTIFICATION_ID_REMINDER, notification)
+        } catch (e: SecurityException) {
+            // Permission denied, ignore
+        }
     }
     
     /**
