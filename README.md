@@ -258,8 +258,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📺 Demo Video
 
-[🎥 Watch the complete app demonstration video](https://youtu.be/u1rUb_OXvaQ)
+[🎥 Watch the complete app demonstration video](https://youtu.be/ktPL4yHUYKg)
 
+**Video Features:**
 - ✅ User registration and login process
 - ✅ Single Sign-On (SSO) with Google
 - ✅ Password encryption demonstration
@@ -272,6 +273,30 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - ✅ Theme switching (Light/Dark mode)
 - ✅ Forgot password functionality
 - ✅ Professional voice-over explanation
+
+---
+
+## 📱 Google Play Store Publication
+
+### Publication Status
+
+**Note:** The app has been fully prepared for Google Play Store publication, including:
+- ✅ Signed release AAB (Android App Bundle) generated
+- ✅ App versioning and build configuration completed
+- ✅ ProGuard rules and release optimizations configured
+- ✅ Keystore signing setup completed
+- ✅ All store listing assets prepared (screenshots, descriptions)
+
+**Publication Limitation:**
+Unfortunately, I was unable to complete the actual publication to the Google Play Store as it requires a one-time $25 USD developer account registration fee. I reached out to my lecturer via email to request assistance with institutional access or guidance on this requirement, but did not receive a response before the submission deadline.
+
+**Evidence of Preparation:**
+- Signed release AAB file is available in the repository
+- Build configuration and signing setup documented
+- All publication requirements have been met except for the account registration
+- The app is fully functional and ready for distribution
+
+The app is production-ready and meets all technical requirements for Play Store publication. The only remaining step is the developer account registration, which requires payment.
 
 ---
 
